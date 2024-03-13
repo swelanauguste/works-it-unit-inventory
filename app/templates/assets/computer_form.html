@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Add Computer</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 p-5 border border-dark rounded-4">
+            <form action=""
+                enctype="multipart/form-data"
+                method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid">
+                    <button class="btn btn-dark"
+                        type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $("#id_model").select2();
+    $("#id_os").select2();
+    $("#id_department").select2();
+    $("#id_monitor").select2();
+</script>
+{% endblock content %}

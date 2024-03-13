@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="d-flex justify-content-start align-items-center">
+        <h1>Monitors</h1>
+        <div class="ms-3">
+            <a href="{% url 'monitor-create' %}">
+                <span class="fs-3 text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+    </div>
+    <hr>
+
+    <div class="col-lg-4 py-3">
+        <form action=""
+            method="get">
+            <input class="form-control form-control-lg rounded-4"
+                type="search"
+                name="monitors"
+                placeholder="Search monitors..."
+                id="">
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="table-responsive">
+            <div class="col-lg-4 p-5 rounded-4 border border-dark">
+                <table class="table table-hover table-sm small">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Serial number</th>
+                            <th scope="col">Monitor model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for monitor in object_list %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td><a class="text-dark"
+                                    href="{% url 'monitor-detail' monitor.pk %}">{{monitor.serial_number|upper}}
+                                </a>
+                            </td>
+                            <td>{{monitor.model.name|upper}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

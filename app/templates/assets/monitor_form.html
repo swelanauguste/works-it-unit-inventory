@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>Add Monitor</h1>
+    <hr>
+    <div class="col-lg-5 p-5 rounded-4 border border-dark">
+        <form action=""
+            enctype="multipart/form-data"
+            method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="d-grid">
+                <button class="btn btn-dark rounded-4"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("#id_model").select2();
+</script>
+{% endblock content %}

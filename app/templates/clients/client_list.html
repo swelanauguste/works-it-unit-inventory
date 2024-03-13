@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="d-flex justify-content-start align-items-center">
+        <h1>Client List</h1>
+        <a href="{% url 'client-create' %}">
+            <span class="fs-1 ms-5 text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">email</th>
+                    <th scope="col">ext</th>
+                    <th scope="col">department</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in object_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a class="text-dark"
+                            href="{{client.get_absolute_url}}">{{client.name|title}}</a>
+                    </td>
+                    <td><a class="text-dark"
+                            href="mailto:{{client.email}}">{{client.email|lower}}</a>
+                    </td>
+                    <td>{{client.ext}}</td>
+                    <td>{{client.department}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Computer Filter</h1>
+    <hr>
+    <div class="col-lg-4">
+        <form method="get">
+            {{ filter.form|crispy }}
+            <div class="d-grid">
+                <input class="btn btn-dark rounded-4"
+                    type="submit" />
+            </div>
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a
+                    href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of
+                    {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last
+                    &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Computer name</th>
+                        <th scope="col">Serial number</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for computer in filter.qs %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'computer-detail' computer.pk %}">{{computer.computer_name|upper}}
+                            </a>
+                        </td>
+                        <td>{{computer.serial_number|upper}}</td>
+                        <td>{{computer.model|upper}}</td>
+                        <td>{{computer.location|upper}}</td>
+                        <td>{{computer.status|upper}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a
+                    href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of
+                    {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last
+                    &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

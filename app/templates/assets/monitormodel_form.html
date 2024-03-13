@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>Add Monitor</h1>
+    <hr>
+    <form action=""
+        enctype="multipart/form-data"
+        method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="d-grid">
+            <button class="btn btn-dark"
+                type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,8 @@
+<h2>Assign Technician to Ticket</h2>
+
+<form method="post"
+    action="{% url 'assign-technician' ticket.slug %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Assign Technician</button>
+</form>

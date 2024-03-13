@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="p-5 mb-5">
+    <section>
+        <h1>Computer models</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'computer-model-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <div class="table-responsive px-5">
+            <table class="table table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Processor</th>
+                        <th scope="col">RAM (GB)</th>
+                        <th scope="col">Storage (GB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model in computer_models %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'computer-model-detail' model.pk %}">{{model}}</a>
+                        </td>
+                        <td>{{model.processor}}</td>
+                        <td>{{model.ram}}</td>
+                        <td>{{model.hdd}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+  
+</div>
+
+{% endblock content %}

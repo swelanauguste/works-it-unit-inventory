@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="col-lg-6 p-5 rounded-4 border border-dark">
+
+        <div class="text-end pb-3">
+            <a class="btn btn-dark px-5 rounded-4"
+                href="{% url 'printer-update' object.pk %}">Edit</a>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <p>Serial Number: {{object.serial_number}}</p>
+                <p>Printer name: {{object.printer_name|default:'-'}}</p>
+                <p>Model: <a
+                        href="{{object.model.get_absolute_url}}">{{object.model}}</a>
+                </p>
+                <p>Location: {{object.location}}</p>
+                <p><a target="_blank"
+                        href="http://{{object.ip_addr}}/">IP Address:
+                        {{object.ip_addr|default:"0.0.0.0"}}</a></p>
+                <p>Department: {{object.department}}</p>
+            </div>
+            <div class="col">
+                <p>Status: {{object.status}}</p>
+                <p>Received: {{object.date_received}}</p>
+                <p>Installed: {{object.date_installed}}</p>
+                <p>Notes: {{object.notes}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

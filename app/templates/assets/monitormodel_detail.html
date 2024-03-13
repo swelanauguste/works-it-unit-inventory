@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="row">
+        <p>Maker: {{object.maker}}</p>
+        <div class="text-end">
+            <a class="text-dark"
+                href="{% url 'monitor-model-update' object.pk %}">Edit</a>
+        </div>
+        <hr>
+        <p>Monitors</p>
+        <ol>
+            {% for monitor in object.monitors.all %}
+            <li><a href="{{monitor.get_absolute_url}}">{{monitor}}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+{% endblock content %}

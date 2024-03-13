@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+
+{% block content %}
+<div class="p-5 m-5">
+    <h1>{{object.summary}} ({{object.ticket_id}}) -
+        {{object.ticket_status|upper}}
+        {% if object.file %}
+        <a target="_blank"
+            href="{{object.file.url}}">
+            <span class="material-symbols-outlined fs-1 text-danger">
+                attach_file
+            </span></a>
+        {% endif %}
+    </h1>
+    <hr>
+    <div class="row">
+        <div class="bg-light px-5 py-3 rounded-4 shadow">
+            <p>{{object.description}}</p>
+            <div class="text-end">
+                <span
+                    class="small text-muted">{{object.created_at|naturaltime}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <a class="btn btn-dark px-5 rounded-4"
+        href="{% url 'ticket-update' object.slug %}">Edit</a>
+</div>
+<div class="border border-dark rounded-4 p-5 m-5">
+    <div class="row">
+        <div class="col">
+            {% if not object.assigned_to %}
+
+            <h2>Assign Technician to Ticket</h2>
+
+            <form method="post"
+                action="{% url 'assign-technician' ticket.slug %}">
+                {% csrf_token %}
+                {{ assign_technician_form|crispy }}
+                <div class="d-grid">
+                    <button class="btn btn-dark"
+                        type="submit">Assign Technician</button>
+                </div>
+            </form>
+            <br>
+            {% else %}
+            <p>Assigned To: <span
+                    class="fs-3 fw-bold">{{object.assigned_to}}</span>
+            </p>
+
+            {% endif %}
+        </div>
+        <div class="col-lg">
+            <form method="post"
+                action="{% url 'add-comment' object.slug %}">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <div class="d-grid">
+                    <button class="btn btn-dark"
+                        type="submit">Add Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if object.comments.all %}
+    <br>
+    <section>
+        <div class="row">
+            <div class="col">
+                <h3>Comments</h3>
+                {% for comment in object.comments.all %}
+                <p class="border p-3 rounded-4 shadow bg-info bg-opacity-10">
+                    {{ comment.comments }}
+                    <span
+                        class="ms-3 small text-muted">{{comment.created_at|naturaltime}}</span>
+                </p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="row">
+        <p>Maker: {{object.maker}}</p>
+        <div class="container">
+            <p>Printers</p>
+            <ol>
+                {% for printer in object.printers.all %}
+                <li><a href="">{{printer}}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <nav>
+        <div class="nav nav-tabs"
+            id="nav-tab"
+            role="tablist">
+            <button class="nav-link active text-dark col-6"
+                id="nav-computers-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-computers"
+                type="button"
+                role="tab"
+                aria-controls="nav-computers"
+                aria-selected="true">Computers</button>
+            <button class="nav-link col text-dark"
+                id="nav-models-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-models"
+                type="button"
+                role="tab"
+                aria-controls="nav-models"
+                aria-selected="false">Models</button>
+        </div>
+    </nav>
+    <div class="tab-content"
+        id="nav-tabContent">
+        <div class="tab-pane fade show active"
+            id="nav-computers"
+            role="tabpanel"
+            aria-labelledby="nav-computers-tab"
+            tabindex="0">
+
+
+            <div class="d-flex justify-content-start align-items-center mt-3">
+                <a href="{% url 'computer-create' %}">
+                    <span
+                        class="ms-5 fs-1 text-light material-symbols-outlined">
+                        add_box
+                    </span>
+                </a>
+                <div class="col-lg-6 mx-auto py-3">
+                    <form action=""
+                        method="get">
+                        <input class="form-control form-control-lg rounded-4"
+                            type="search"
+                            name="computers"
+                            placeholder="Search computer..."
+                            id="">
+                    </form>
+                    <div class="text-end small">
+                        <a class=" text-muted me-2"
+                            href="{% url 'computer-filter' %}">Advance
+                            filter</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <br>
+            <section>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a
+                            href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of
+                            {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                        <a
+                            href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last
+                            &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="table-responsive px-5">
+                    <table class="table table-hover table-sm small">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Computer name</th>
+                                <th scope="col">Serial number</th>
+                                <th scope="col">Model</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for computer in object_list %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td><a class="text-dark"
+                                        href="{% url 'computer-detail' computer.pk %}">{{computer.computer_name|upper}}
+                                    </a>
+                                </td>
+                                <td>{{computer.serial_number|upper}}</td>
+                                <td>{{computer.model|upper}}</td>
+                                <td>{{computer.location|upper}}</td>
+                                <td>{{computer.status|upper}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a
+                            href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of
+                            {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                        <a
+                            href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last
+                            &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </section>
+        </div>
+        <div class="tab-pane fade"
+            id="nav-models"
+            role="tabpanel"
+            aria-labelledby="nav-models-tab"
+            tabindex="0">
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock content %}

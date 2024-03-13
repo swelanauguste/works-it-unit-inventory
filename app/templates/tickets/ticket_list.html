@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Tickets</h1>
+    <div class="text-end">
+        <a href="{% url 'ticket-create' %}">
+            <span class="text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
+    </div>
+    <div class="col-lg-6 mx-auto py-3">
+        <form action=""
+            method="get">
+            <input class="form-control form-control-lg rounded-pill"
+                type="search"
+                name="ticket"
+                placeholder="Search by Ticket ID"
+                id="">
+        </form>
+    </div>
+    <br>
+    <div class="table responsive">
+        <table class="table table-sm table-hover small">
+            <tbody>
+                {% for ticket in object_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a class="text-dark"
+                            href="{{ticket.get_absolute_url}}">{{ticket.summary}}</a>
+                    </td>
+                    <td>{{ticket.ticket_id}}</td>
+                    <td>{{ticket.ticket_status}}</td>
+                    <td>{{ticket.ticket_category}}</td>
+                    <td>{{ticket.assigned_to}}</td>
+                    <td><span class="text-muted">{{ticket.created_at}} |
+                            {{ticket.created_at|naturaltime}}</span></td>
+                    <td>{{ticket.updated_at}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock content %}

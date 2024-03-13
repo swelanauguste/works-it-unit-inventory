@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h5>Microsoft Office
+        ({{microsoft_office_installed_count}}/{{microsoft_office_count}})</h5>
+    <hr>
+    <div class="col-lg-6 mx-auto py-3">
+        <form action=""
+            method="get">
+            <input class="form-control form-control-lg rounded-4"
+                type="search"
+                name="microsoft_office_search"
+                placeholder="Search Microsoft Office keys..."
+                id="">
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Key</th>
+                        <th scope="col">Computer</th>
+                        <th scope="col">Installed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'microsoft-office-detail' key.pk %}">{{key}}
+                            </a>
+                        </td>
+                        <td>{{key.computer|default:'Available'}}</td>
+                        <td>{{key.date_installed|default:'Available'}}</td>
+                    </tr>
+                    {% empty %}
+                    <td colspan="4">
+                        <p class="text-center">No available keys</p>
+                    </td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+
+{% endblock content %}

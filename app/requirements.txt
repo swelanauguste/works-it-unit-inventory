@@ -1,0 +1,8 @@
+crispy-bootstrap5==2024.2
+Django==5.0.3
+django-allauth==0.61.1
+django-crispy-forms==2.1
+django-filter==24.1
+django-pwa==1.1.0
+gunicorn==21.2.0
+psycopg2-binary==2.9.9

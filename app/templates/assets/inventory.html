@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <div class="pt-3 pb-5 px-5">
+        <input class="form-control form-control-lg rounded-pill"
+            type="search"
+            name="q"
+            placeholder="Search inventory (computer, printers, monitors)..."
+            id="">
+    </div>
+    <div class="row">
+        <h1>Computers</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'computer-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for computer in computers %}
+            <li> <a class="text-dark"
+                    href="{% url 'computer-detail' computer.pk %}">{{computer|upper}}
+                    - {{computer.dept|upper}} - {{computer.status|upper}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <br>
+    <div class="row">
+        <h1>Computer models</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'computer-model-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for model in computer_models %}
+            <li> <a class="text-dark"
+                    href="{% url 'computer-model-detail' model.pk %}">{{model}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <br>
+    <div class="row">
+        <h1>Printers</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'printer-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for printer in printers %}
+            <li> <a class="text-dark"
+                    href="{% url 'printer-detail' printer.pk %}">{{printer}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <br>
+    <div class="row">
+        <h1>Printer models</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'printer-model-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for model in printer_models %}
+            <li> <a class="text-dark"
+                    href="{% url 'printer-model-detail' model.pk %}">{{model}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <br>
+    <div class="row">
+        <h1>Monitors</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'monitor-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for monitor in monitors %}
+            <li> <a class="text-dark"
+                    href="{% url 'monitor-detail' monitor.pk %}">{{monitor}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <br>
+    <div class="row">
+        <h1>Monitor models</h1>
+        <hr>
+        <div class="text-end">
+            <a href="{% url 'monitor-model-create' %}">
+                <span class="text-success material-symbols-outlined">
+                    add_box
+                </span>
+            </a>
+        </div>
+        <ol>
+            {% for model in monitor_models %}
+            <li> <a class="text-dark"
+                    href="{% url 'monitor-model-detail' model.pk %}">{{model}}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% endblock content %}

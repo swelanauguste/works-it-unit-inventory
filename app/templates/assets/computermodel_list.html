@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="d-flex justify-content-start align-items-center">
+        <h1>Computer models ({{computer_model_count}})</h1>
+        <a href="{% url 'computer-model-create' %}">
+            <span class="ms-5 fs-3 text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
+    </div>
+    <hr>
+
+    <div class="col-lg-6 mx-auto py-3">
+        <form action=""
+            method="get">
+            <input class="form-control form-control-lg rounded-4"
+                type="search"
+                name="computer-models"
+                placeholder="Search computer models..."
+                id="">
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Maker</th>
+                        <th scope="col">Processor</th>
+                        <th scope="col">RAM (GB)</th>
+                        <th scope="col">Storage (GB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'computer-model-detail' model.pk %}">{{model.name|upper}}
+                            </a>
+                        </td>
+                        <td>{{model.computer_type|upper}}</td>
+                        <td>{{model.maker|upper}}</td>
+                        <td>{{model.processor}}</td>
+                        <td>{{model.ram}}</td>
+                        <td>{{model.hdd}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

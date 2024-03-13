@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="col-lg-4 p-5 rounded-4 border shadow">
+        <h1>Create ticket</h1>
+        <hr>
+        <br>
+        <form action=""
+            enctype="multipart/form-data"
+            method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="d-grid">
+                <button class="btn btn-dark"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

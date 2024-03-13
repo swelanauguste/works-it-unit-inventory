@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row border rounded-4 shadow p-5">
+                <div class="text-end pb-3">
+                    <a class="btn btn-dark"
+                        href="{% url 'computer-update' object.pk %}">Edit</a>
+                </div>
+                <hr>
+                <div class="col">
+                    <p>Computer name: {{object.computer_name|upper}}</p>
+                    <p>Model: <a href="{{object.model.get_absolute_url}}">
+                            {{object.model|upper}}</a></p>
+                    <p>Location: {{object.location}}</p>
+                    <!-- <p>IP Address: {{object.ip_addr}}</p> -->
+                    <p>Department: {{object.department}}</p>
+                    <p>user: {{object.user}}</p>
+                    <p>Status: {{object.status}}</p>
+                    <p>Received: {{object.date_received}}</p>
+                    <p>Installed: {{object.date_installed}}</p>
+                    <p>Warranty: {{object.warranty_info}}</p>
+                    {% if object.image %}
+                    <a class="text-dark"
+                        target="_new"
+                        href="{{object.image.url}}">BELARC</a>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <p>Serial Number: {{object.serial_number}}</p>
+                    <p>Processor: {{object.model.processor}}</p>
+                    <p>RAM/Stoage: {{object.model.ram}}/{{object.model.hdd}} GB
+                    </p>
+                    <p>OS: {{object.os}}</p>
+                    <p>Monitor(s):
+                        {% for monitor in object.monitor.all %}
+                        {{monitor}},
+                        {% endfor %}
+                    </p>
+                    <p>Note: {{object.notes}}</p>
+                    <p>MS Office: {{object.office_installations.last}}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        {% if object.comments.all %}
+        <div class="col px-5">
+            <h3>Comments</h3>
+            {% for comment in object.comments.all %}
+            <p class="border p-3 rounded-4 shadow bg-info bg-opacity-10">
+                {{ comment.comment }}
+                <span
+                    class="ms-3 small text-muted">{{comment.created_at|naturaltime}}</span>
+            </p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+    <div class="col-lg-6">
+        <form method="post"
+            action="{% url 'add-computer-comment' object.pk %}">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <div class="text-end">
+                <button class="btn btn-dark"
+                    type="submit">Add Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

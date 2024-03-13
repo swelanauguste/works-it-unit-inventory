@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Printers ({{printer_count}})</h1>
+    <hr>
+    <div class="text-end">
+        <a href="{% url 'printer-create' %}">
+            <span class="fs-3 text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
+    </div>
+    <div class="col-lg-6 mx-auto py-3 px-5">
+        <form action=""
+            method="get">
+            <input class="form-control form-control-lg rounded-4"
+                type="search"
+                name="printers"
+                placeholder="Search printers..."
+                id="">
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Printer model</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">IP</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for printer in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'printer-detail' printer.pk %}">{{printer.model.name|upper}}
+                            </a>
+                        </td>
+                        <td>{{printer.location}}</td>
+                        <td>{{printer.department}}</td>
+                        <td><a target="_blank"
+                                href="http://{{printer.ip_addr}}">{{printer.ip_addr|default:'-'}}</a>
+                        </td>
+                        <td>{{printer.status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="text-end py-3">
+        <a class="btn btn-dark"
+            href="{% url 'monitor-update' object.pk %}">Edit</a>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>Serial Number: {{object.serial_number}}</p>
+            <p>Computer: <a
+                    href="{{object.monitors.last.get_absolute_url}}">{{object.monitors.last}}</a>
+            </p>
+            <p>Model: <a
+                    href="{{object.model.get_absolute_url}}">{{object.model}}</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>Received: {{object.date_received}}</p>
+            <p>Installed: {{object.date_installed}}</p>
+            <p>Notes: {{object.notes}}</p>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
