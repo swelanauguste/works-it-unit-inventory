@@ -20,6 +20,7 @@ from .forms import (
     MicrosoftOfficeUpdateForm,
     MonitorForm,
     PrinterForm,
+    ComputerModelForm
 )
 from .models import (
     Computer,
@@ -262,6 +263,11 @@ class PrinterModelListView(ListView):
 class ComputerCreateView(CreateView):
     model = Computer
     form_class = ComputerForm
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -329,16 +335,26 @@ class ComputerCreateView(CreateView):
 class ComputerUpdateView(UpdateView):
     model = Computer
     form_class = ComputerForm
+    
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class ComputerModelCreateView(CreateView):
     model = ComputerModel
-    fields = "__all__"
+    form_class = ComputerModelForm
+    
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class ComputerModelUpdateView(UpdateView):
     model = ComputerModel
-    fields = "__all__"
+    form_class = ComputerModelForm
 
 
 class ComputerDetailView(DetailView):

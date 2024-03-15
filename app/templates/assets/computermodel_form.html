@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container py-5 mb-5">
-    <h1>Add Computer Model</h1>
+    <h1>Computer model form</h1>
     <hr>
     <div class="col-lg-6 p-5 border border-dark rounded-4">
         <form action=""
@@ -12,7 +12,8 @@
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-grid">
-                <button class="btn btn-dark rounded-4"
+                <br>
+                <button class="btn btn-lg btn-dark rounded-4"
                     type="submit">Submit</button>
             </div>
         </form>

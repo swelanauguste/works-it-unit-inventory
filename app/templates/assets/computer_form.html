@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <h1>Add Computer</h1>
+    <h1>Computer form</h1>
     <hr>
     <div class="row">
         <div class="col-lg-6 p-5 border border-dark rounded-4">
@@ -14,7 +14,8 @@
                 {% csrf_token %}
                 {{ form|crispy }}
                 <div class="d-grid">
-                    <button class="btn btn-dark"
+                    <br>
+                    <button class="btn btn-lg btn-dark rounded-4"
                         type="submit">Submit</button>
                 </div>
             </form>
@@ -26,5 +27,6 @@
     $("#id_os").select2();
     $("#id_department").select2();
     $("#id_monitor").select2();
+    $("#id_status").select2();
 </script>
 {% endblock content %}

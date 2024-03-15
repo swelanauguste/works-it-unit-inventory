@@ -209,7 +209,7 @@ class Computer(models.Model):
         blank=True,
     )
     serial_number = models.CharField(max_length=100, blank=True, null=True)
-    warranty_info = models.CharField("Warranty", max_length=100)
+    warranty_info = models.CharField("Warranty", max_length=100, default="N/A")
     computer_name = models.CharField(max_length=100, blank=True, null=True)
     model = models.ForeignKey(
         ComputerModel, on_delete=models.CASCADE, related_name="computers"
