@@ -1,7 +1,14 @@
 from django import forms
 
 from .models import ComputerComment  # ComputerName,
-from .models import Computer, ComputerModel, MicrosoftOffice, Monitor, Printer
+from .models import (
+    Computer,
+    ComputerModel,
+    MicrosoftOffice,
+    Monitor,
+    Printer,
+    PrinterModel,
+)
 
 # class GetComputerNameForm(forms.ModelForm):
 
@@ -42,6 +49,11 @@ class PrinterForm(forms.ModelForm):
             "date_received": forms.DateInput(attrs={"type": "date"}),
             "date_installed": forms.DateInput(attrs={"type": "date"}),
         }
+class PrinterModelForm(forms.ModelForm):
+    class Meta:
+        model = PrinterModel
+        fields = "__all__"
+        exclude = ["created_by", "updated_by"]
 
 
 class MonitorForm(forms.ModelForm):

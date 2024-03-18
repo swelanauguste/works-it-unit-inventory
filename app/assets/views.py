@@ -15,18 +15,17 @@ from django.views.generic import (
 from .filters import ComputerFilter, PrinterFilter
 from .forms import (
     CommentCreateForm,
-    ComputerForm,
-    # GetComputerNameForm,
+    ComputerForm,  # GetComputerNameForm,
+    ComputerModelForm,
     MicrosoftOfficeUpdateForm,
     MonitorForm,
     PrinterForm,
-    ComputerModelForm
+    PrinterModelForm
 )
 from .models import (
     Computer,
     ComputerComment,
-    ComputerModel,
-    # ComputerName,
+    ComputerModel,  # ComputerName,
     ComputerType,
     Maker,
     MicrosoftOffice,
@@ -36,7 +35,6 @@ from .models import (
     PrinterModel,
     Status,
 )
-
 
 # def get_next_computer_name_view(request):
 #     form = GetComputerNameForm()
@@ -131,16 +129,12 @@ class MicrosoftOfficeUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
     success_message = "Assigned to  %(computer)s"
 
     def form_valid(self, form):
-        if form.instance.date_installed and not form.cleaned_data.get(
-            "has_failed", False
-        ):
-            form.instance.is_installed = True
-            form.instance.has_failed = (
-                False  # Explicitly setting this in case of re-activation attempts
-            )
-        else:
+        if form.instance.has_failed:
             form.instance.is_installed = False
             form.instance.has_failed = True
+        elif form.instance.date_installed and not form.instance.computer:
+            form.add_error("computer", "Please select a computer for installation.")
+    
         return super().form_valid(form)
 
 
@@ -263,7 +257,7 @@ class PrinterModelListView(ListView):
 class ComputerCreateView(CreateView):
     model = Computer
     form_class = ComputerForm
-    
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
@@ -282,10 +276,10 @@ class ComputerCreateView(CreateView):
 #     model = Computer
 #     form_class = ComputerForm
 #     success_url = reverse_lazy("computer-list")  # Adjust with your actual success URL
-    
+
 #     def get_initial(self):
 #         initial = super().get_initial()
-        
+
 #         # Compute the next computer name
 #         last_computer_name_instance = ComputerName.objects.order_by("-last_used_number").first()
 #         if last_computer_name_instance:
@@ -293,49 +287,49 @@ class ComputerCreateView(CreateView):
 #         else:
 #             next_number = 1
 #         next_computer_name = f"MCWT{next_number}"
-        
+
 #         # Set the initial value for the computer_name field
 #         initial['computer_name'] = next_computer_name
 #         return initial
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     last_computer_name_instance = ComputerName.objects.order_by(
-    #         "-last_used_number"
-    #     ).first()
-    #     if last_computer_name_instance:
-    #         # Increment the last used number for the next computer name
-    #         next_computer_name = (
-    #             f"MCWT{last_computer_name_instance.last_used_number + 1}"
-    #         )
-    #     else:
-    #         next_computer_name = "MCWT1"
-    #     context["next_computer_name"] = next_computer_name
-    #     return context
+# def get_context_data(self, **kwargs):
+#     context = super().get_context_data(**kwargs)
+#     last_computer_name_instance = ComputerName.objects.order_by(
+#         "-last_used_number"
+#     ).first()
+#     if last_computer_name_instance:
+#         # Increment the last used number for the next computer name
+#         next_computer_name = (
+#             f"MCWT{last_computer_name_instance.last_used_number + 1}"
+#         )
+#     else:
+#         next_computer_name = "MCWT1"
+#     context["next_computer_name"] = next_computer_name
+#     return context
 
-    # def form_valid(self, form):
-    #     # This is where you handle what happens after the form is submitted and valid
-    #     # It's also where you'd typically save your model instance
+# def form_valid(self, form):
+#     # This is where you handle what happens after the form is submitted and valid
+#     # It's also where you'd typically save your model instance
 
-    #     # First, let's save the Computer instance
-    #     self.object = form.save(commit=False)
-    #     self.object.computer_name = form.cleaned_data.get('computer_name', '')
-    #     self.object.save()
+#     # First, let's save the Computer instance
+#     self.object = form.save(commit=False)
+#     self.object.computer_name = form.cleaned_data.get('computer_name', '')
+#     self.object.save()
 
-    #     # Now update the ComputerName instance
-    #     last_used_number = int(self.object.computer_name.replace("MCWT", ""))  # Extract the number part
-    #     ComputerName.objects.create(
-    #         computer_name=self.object.computer_name,
-    #         last_used_number=last_used_number
-    #     )
+#     # Now update the ComputerName instance
+#     last_used_number = int(self.object.computer_name.replace("MCWT", ""))  # Extract the number part
+#     ComputerName.objects.create(
+#         computer_name=self.object.computer_name,
+#         last_used_number=last_used_number
+#     )
 
-    #     return super().form_valid(form)
+#     return super().form_valid(form)
 
 
 class ComputerUpdateView(UpdateView):
     model = Computer
     form_class = ComputerForm
-    
+
     def form_valid(self, form):
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
@@ -344,8 +338,7 @@ class ComputerUpdateView(UpdateView):
 class ComputerModelCreateView(CreateView):
     model = ComputerModel
     form_class = ComputerModelForm
-    
-    
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
@@ -373,21 +366,39 @@ class ComputerModelDetailView(DetailView):
 class PrinterCreateView(CreateView):
     model = Printer
     form_class = PrinterForm
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class PrinterUpdateView(UpdateView):
     model = Printer
     form_class = PrinterForm
+    
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class PrinterModelCreateView(CreateView):
     model = PrinterModel
-    fields = "__all__"
+    form_class = PrinterModelForm
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 class PrinterModelUpdateView(UpdateView):
     model = PrinterModel
-    fields = "__all__"
+    form_class = PrinterModelForm
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class PrinterDetailView(DetailView):

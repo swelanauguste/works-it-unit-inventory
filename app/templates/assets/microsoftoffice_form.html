@@ -4,20 +4,23 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <div class="col-lg-6 p-5 mx-auto">
-        <h1>Create ticket</h1>
-        <hr>
-        <br>
+    <h1>{{object}}</h1>
+    <hr>
+    <div class="col-lg-6 p-5 border-dark border rounded-4">
         <form action=""
-            enctype="multipart/form-data"
             method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-grid">
-                <button class="btn btn-dark"
+                <button class="btn btn-dark rounded-4"
                     type="submit">Submit</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+    $("#id_model").select2();
+    $("#id_department").select2();
+    $("#id_location").select2();
+</script>
 {% endblock content %}

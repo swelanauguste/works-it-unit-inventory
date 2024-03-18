@@ -20,23 +20,18 @@
         <p>Computer: <a href="{{object.computer.get_absolute_url}}">
                 {{object.computer|default:'Not installed'}}</a></p>
         <p>Installed: {{object.date_installed|default:'Not installed'}}</p>
+        {% if object.comments %}
         <p>Comments: {{object.comments}}</p>
+        {% endif %}
         <span hidden
             id="getProductKey"
             value="{{object.remove_hyphens}}">
             {{object.remove_hyphens}}</span>
-        {% if not object.is_installed %}
-        <hr>
-
-        <form action="{% url 'microsoft-office-update' object.pk %}"
-            method="post">
-            {% csrf_token %}
-            {{microsoft_office_update_form|crispy}}
-            <button class="btn btn-dark"
-                type="submit">Submit</button>
-        </form>
-        {% endif %}
-
+        <div>
+            <a class="btn btn-dark rounded-4 px-5"
+                href="{% url 'microsoft-office-update' object.pk %}">Assign
+                Key</a>
+        </div>
     </div>
 </div>
 <ul hidden

@@ -11,7 +11,7 @@
             <p>Printers</p>
             <ol>
                 {% for printer in object.printers.all %}
-                <li><a href="">{{printer}}</a></li>
+                <li><a href="{{printer.get_absolute_url}}">{{printer}}</a></li>
                 {% endfor %}
             </ol>
         </div>

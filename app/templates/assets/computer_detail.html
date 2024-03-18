@@ -10,10 +10,10 @@
     <h1>{{object}}</h1>
     <hr>
     <div class="row">
-        <div class="col-lg-6">
-            <div class="row border rounded-4 shadow p-5">
+        <div class="col-lg">
+            <div class="row p-5">
                 <div class="text-end pb-3">
-                    <a class="btn btn-dark"
+                    <a class="btn btn-dark px-5 rounded-4"
                         href="{% url 'computer-update' object.pk %}">Edit</a>
                 </div>
                 <hr>
@@ -51,12 +51,24 @@
                 </div>
             </div>
         </div>
-        <br>
+        <hr>
+        <div class="col-lg-4 float-end py-5">
+            <form method="post"
+                action="{% url 'add-computer-comment' object.pk %}">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <div class="text-end">
+                    <button class="btn btn-dark px-5 rounded-4"
+                        type="submit">Add Comment</button>
+                </div>
+            </form>
+        </div>
         {% if object.comments.all %}
         <div class="col px-5">
             <h3>Comments</h3>
             {% for comment in object.comments.all %}
-            <p class="border p-3 rounded-4 shadow bg-info bg-opacity-10">
+            <p class="border p-3 rounded-4 shadow bg-info bg-opacity-10 "
+                style="width: fit-content;">
                 {{ comment.comment }}
                 <span
                     class="ms-3 small text-muted">{{comment.created_at|naturaltime}}</span>
@@ -64,18 +76,6 @@
             {% endfor %}
         </div>
         {% endif %}
-    </div>
-    <br>
-    <div class="col-lg-6">
-        <form method="post"
-            action="{% url 'add-computer-comment' object.pk %}">
-            {% csrf_token %}
-            {{ comment_form|crispy }}
-            <div class="text-end">
-                <button class="btn btn-dark"
-                    type="submit">Add Comment</button>
-            </div>
-        </form>
     </div>
 </div>
 
