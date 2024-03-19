@@ -11,9 +11,6 @@ class TicketUpdateForm(forms.ModelForm):
         exclude = [
             "slug",
             "user",
-            "description",
-            "summary",
-            "file",
             "created_by",
             "updated_by",
         ]
