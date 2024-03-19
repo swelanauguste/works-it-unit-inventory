@@ -40,8 +40,8 @@ class Profile(models.Model):
     # def get_absolute_url(self):
     #     return reverse("user-profile-detail", kwargs={"slug": self.slug})
     
-    # def get_absolute_update_url(self):
-    #     return reverse("user-profile-update", kwargs={"slug": self.slug})
+    def get_absolute_url(self):
+        return reverse("profile-update", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
