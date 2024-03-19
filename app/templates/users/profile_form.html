@@ -3,17 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container py-5 mb-5">
-    <h1>Computer model form</h1>
+<div class="p-5 mb-5">
+    <h1>{{object}}</h1>
     <hr>
-    <div class="col-lg-6 p-5 mx-auto">
+    <br>
+    <div class="col-lg-5 mx-auto">
         <form action=""
+            enctype="multipart/form-data"
             method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-grid">
                 <br>
-                <button class="btn btn-lg btn-dark rounded-4"
+                <button class="btn btn-dark rounded-4 btn-lg"
                     type="submit">Submit</button>
             </div>
         </form>

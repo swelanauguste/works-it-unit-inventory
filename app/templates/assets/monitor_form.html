@@ -3,17 +3,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container py-5 mb-5">
-    <h1>Add Monitor</h1>
+<div class="p-5 mb-5">
+    <h1>Monitor form</h1>
     <hr>
-    <div class="col-lg-5 p-5 rounded-4 border border-dark">
+    <div class="col-lg-5 mx-auto p-5">
         <form action=""
             enctype="multipart/form-data"
             method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-grid">
-                <button class="btn btn-dark rounded-4"
+                <br>
+                <button class="btn btn-lg btn-dark rounded-4"
                     type="submit">Submit</button>
             </div>
         </form>

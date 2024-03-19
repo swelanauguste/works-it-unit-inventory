@@ -6,16 +6,37 @@
 <div class="p-5 mb-5">
     <h1>Computer Filter</h1>
     <hr>
-    <div class="col-lg-4">
+    <div class="shadow p-5 rounded-4 mb-5">
         <form method="get">
-            {{ filter.form|crispy }}
-            <div class="d-grid">
-                <input class="btn btn-dark rounded-4"
-                    type="submit" />
+            <div class="row">
+                <div class="col-lg-4">
+                    {{ filter.form.project|as_crispy_field }}
+                </div>
+                <div class="col-lg-4">
+                    {{ filter.form.model|as_crispy_field }}
+                </div>
+                <div class="col-lg-4">
+                    {{ filter.form.status|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    {{ filter.form.os|as_crispy_field }}
+                </div>
+                <div class="col-lg-4">
+                    {{ filter.form.location|as_crispy_field }}
+                </div>
+                <div class="col-lg-4">
+                    {{ filter.form.department|as_crispy_field }}
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-dark btn-lg px-5 rounded-4"
+                    type="submit">Filter</button>
             </div>
         </form>
     </div>
-    <br>
+    <hr>
     <section>
         <div class="pagination">
             <span class="step-links">
@@ -89,5 +110,14 @@
         </div>
     </section>
 </div>
+<script>
+    $("#id_model").select2();
+    $("#id_os").select2();
+    $("#id_department").select2();
+    $("#id_monitor").select2();
+    $("#id_status").select2();
+    $("#id_project").select2();
+    $("#id_location").select2();
+</script>
 
 {% endblock content %}

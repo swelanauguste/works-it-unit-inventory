@@ -6,6 +6,7 @@ from .models import (
     ComputerModel,
     MicrosoftOffice,
     Monitor,
+    MonitorModel,
     Printer,
     PrinterModel,
 )
@@ -49,6 +50,8 @@ class PrinterForm(forms.ModelForm):
             "date_received": forms.DateInput(attrs={"type": "date"}),
             "date_installed": forms.DateInput(attrs={"type": "date"}),
         }
+
+
 class PrinterModelForm(forms.ModelForm):
     class Meta:
         model = PrinterModel
@@ -60,6 +63,16 @@ class MonitorForm(forms.ModelForm):
     class Meta:
         model = Monitor
         fields = "__all__"
+        exclude = ["created_by", "updated_by"]
+        widgets = {
+            "date_received": forms.DateInput(attrs={"type": "date"}),
+            "date_installed": forms.DateInput(attrs={"type": "date"}),
+        }
+class MonitorModelForm(forms.ModelForm):
+    class Meta:
+        model = MonitorModel
+        fields = "__all__"
+        exclude = ["created_by", "updated_by"]
         widgets = {
             "date_received": forms.DateInput(attrs={"type": "date"}),
             "date_installed": forms.DateInput(attrs={"type": "date"}),

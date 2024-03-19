@@ -13,19 +13,21 @@ from django.views.generic import (
 )
 
 from .filters import ComputerFilter, PrinterFilter
+from .forms import ComputerForm  # GetComputerNameForm,
 from .forms import (
     CommentCreateForm,
-    ComputerForm,  # GetComputerNameForm,
     ComputerModelForm,
     MicrosoftOfficeUpdateForm,
     MonitorForm,
     PrinterForm,
-    PrinterModelForm
+    PrinterModelForm,
+    MonitorForm,
+    MonitorModelForm,
 )
+from .models import ComputerModel  # ComputerName,
 from .models import (
     Computer,
     ComputerComment,
-    ComputerModel,  # ComputerName,
     ComputerType,
     Maker,
     MicrosoftOffice,
@@ -36,47 +38,6 @@ from .models import (
     Status,
 )
 
-# def get_next_computer_name_view(request):
-#     form = GetComputerNameForm()
-#     computer_name_prefix = "MCWT"
-#     last_computer_name = ComputerName.objects.order_by("-last_used_number").first()
-
-#     if request.method == "POST":
-#         form = GetComputerNameForm(request.POST)
-#         if form.is_valid():
-#             if last_computer_name:
-#                 # Increment the last used number to get the next sequence
-#                 next_number = last_computer_name.last_used_number + 1
-#             else:
-#                 # If no computers exist yet, start from 1
-#                 next_number = 1
-
-#             # Combine prefix with next number to get the full computer name
-#             next_computer_name = f"{computer_name_prefix}{next_number}"
-
-#             # Save the new computer name with the incremented number
-#             ComputerName.objects.create(
-#                 computer_name=next_computer_name, last_used_number=next_number
-#             )
-
-#             # Redirect or update context as necessary
-#             return redirect(
-#                 "computer-create"
-#             )  # Replace 'your_success_url' with your actual URL name
-
-#     else:
-#         # If GET request or the form is not valid, show the form again with the next predicted name
-#         if last_computer_name:
-#             next_number = last_computer_name.last_used_number + 1
-#         else:
-#             next_number = 1
-#         next_computer_name = f"{computer_name_prefix}{next_number}"
-#         context = {
-#             "form": form,
-#             "next_computer_name": next_computer_name,  # Provide the predicted next computer name in context
-#         }
-#         return render(request, "assets/get_computer_name.html", context)
-
 
 def computer_filter_view(request):
     f = ComputerFilter(request.GET, queryset=Computer.objects.all())
@@ -84,7 +45,7 @@ def computer_filter_view(request):
 
 
 def printer_filter_view(request):
-    f = PrinterFilter(request.GET, queryset=Printer.objects.none())
+    f = PrinterFilter(request.GET, queryset=Printer.objects.all())
     return render(request, "assets/printer_filter.html", {"filter": f})
 
 
@@ -134,7 +95,7 @@ class MicrosoftOfficeUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
             form.instance.has_failed = True
         elif form.instance.date_installed and not form.instance.computer:
             form.add_error("computer", "Please select a computer for installation.")
-    
+
         return super().form_valid(form)
 
 
@@ -263,68 +224,6 @@ class ComputerCreateView(CreateView):
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # context["last_computer_name"] = ComputerName.objects.order_by(
-    #     #     "-computer_name"
-    #     # ).first()
-    #     # context["get_computer_name_form"] = GetComputerNameForm
-    #     return context
-
-
-# class ComputerCreateView(CreateView):
-#     model = Computer
-#     form_class = ComputerForm
-#     success_url = reverse_lazy("computer-list")  # Adjust with your actual success URL
-
-#     def get_initial(self):
-#         initial = super().get_initial()
-
-#         # Compute the next computer name
-#         last_computer_name_instance = ComputerName.objects.order_by("-last_used_number").first()
-#         if last_computer_name_instance:
-#             next_number = last_computer_name_instance.last_used_number + 1
-#         else:
-#             next_number = 1
-#         next_computer_name = f"MCWT{next_number}"
-
-#         # Set the initial value for the computer_name field
-#         initial['computer_name'] = next_computer_name
-#         return initial
-
-# def get_context_data(self, **kwargs):
-#     context = super().get_context_data(**kwargs)
-#     last_computer_name_instance = ComputerName.objects.order_by(
-#         "-last_used_number"
-#     ).first()
-#     if last_computer_name_instance:
-#         # Increment the last used number for the next computer name
-#         next_computer_name = (
-#             f"MCWT{last_computer_name_instance.last_used_number + 1}"
-#         )
-#     else:
-#         next_computer_name = "MCWT1"
-#     context["next_computer_name"] = next_computer_name
-#     return context
-
-# def form_valid(self, form):
-#     # This is where you handle what happens after the form is submitted and valid
-#     # It's also where you'd typically save your model instance
-
-#     # First, let's save the Computer instance
-#     self.object = form.save(commit=False)
-#     self.object.computer_name = form.cleaned_data.get('computer_name', '')
-#     self.object.save()
-
-#     # Now update the ComputerName instance
-#     last_used_number = int(self.object.computer_name.replace("MCWT", ""))  # Extract the number part
-#     ComputerName.objects.create(
-#         computer_name=self.object.computer_name,
-#         last_used_number=last_used_number
-#     )
-
-#     return super().form_valid(form)
-
 
 class ComputerUpdateView(UpdateView):
     model = Computer
@@ -366,7 +265,7 @@ class ComputerModelDetailView(DetailView):
 class PrinterCreateView(CreateView):
     model = Printer
     form_class = PrinterForm
-    
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
@@ -376,7 +275,7 @@ class PrinterCreateView(CreateView):
 class PrinterUpdateView(UpdateView):
     model = Printer
     form_class = PrinterForm
-    
+
     def form_valid(self, form):
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
@@ -391,10 +290,11 @@ class PrinterModelCreateView(CreateView):
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
 
+
 class PrinterModelUpdateView(UpdateView):
     model = PrinterModel
     form_class = PrinterModelForm
-    
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
@@ -449,12 +349,12 @@ class MonitorUpdateView(UpdateView):
 
 class MonitorModelCreateView(CreateView):
     model = MonitorModel
-    fields = "__all__"
+    form_class = MonitorModelForm
 
 
 class MonitorModelUpdateView(UpdateView):
     model = MonitorModel
-    fields = "__all__"
+    form_class = MonitorModelForm
 
 
 class MonitorDetailView(DetailView):

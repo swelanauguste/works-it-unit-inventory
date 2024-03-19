@@ -5,7 +5,6 @@ from .models import Computer, Printer
 
 
 class ComputerFilter(django_filters.FilterSet):
-   
 
     class Meta:
         model = Computer
@@ -17,7 +16,6 @@ class ComputerFilter(django_filters.FilterSet):
             "location",
             "department",
         ]
-     
 
 
 class PrinterFilter(django_filters.FilterSet):
@@ -25,9 +23,7 @@ class PrinterFilter(django_filters.FilterSet):
     class Meta:
         model = Printer
         fields = [
-            "serial_number",
-            "printer_name",
-            "ip_addr",
+            "model",
             "status",
             "location",
             "department",
