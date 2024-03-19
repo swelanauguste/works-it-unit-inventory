@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="p-5">
+    <h1>{{ticket}}</h1>
+    <hr>
+    <p>{{ticket.summary}}</p>
+
+    <p>Your ticket <span class="fw-bold">{{ticket}}</span>, has been closed</p>
+    <a href="{% url 'ticket-open-list' %}">Back to ticket list</a>
+</div>
+{% endblock content %}

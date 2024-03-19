@@ -17,12 +17,26 @@ from .forms import (
     TicketCreateForm,
     TicketUpdateForm,
 )
-from .models import Comment, Ticket
+from .models import Comment, Ticket, TicketStatus
 
 
 class TicketUpdateView(UpdateView):
     model = Ticket
     form_class = TicketUpdateForm
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+
+def closed_ticket_view(request, slug):
+    ticket = get_object_or_404(Ticket, slug=slug)
+    ticket.is_closed = True
+    ticket.ticket_status = TicketStatus.objects.get(name="closed")
+    ticket.updated_by = request.user
+    ticket.save()
+    messages.success(request, f"Your ticket {ticket} has been closed")
+    return redirect("ticket-open-list")
 
 
 def assign_technician_view(request, slug):
@@ -99,9 +113,28 @@ def send_ticket_creation_email(ticket, recipient_email):
     )
 
 
-class TicketListView(ListView):
+class TicketOpenListView(ListView):
     model = Ticket
     paginate_by = 25
+
+    def get_queryset(self):
+        return (
+            Ticket.objects.filter(is_closed=False)
+            if Ticket.objects.filter(is_closed=False).exists()
+            else Ticket.objects.none()
+        )
+
+
+class TicketClosedListView(ListView):
+    model = Ticket
+    paginate_by = 25
+
+    def get_queryset(self):
+        return (
+            Ticket.objects.filter(is_closed=True)
+            if Ticket.objects.filter(is_closed=True).exists()
+            else Ticket.objects.none()
+        )
 
 
 class ClientTicketListView(ListView):

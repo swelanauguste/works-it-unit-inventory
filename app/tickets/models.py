@@ -22,7 +22,7 @@ class TicketStatus(models.Model):
         verbose_name_plural = "Ticket Statuses"
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name.upper()}"
 
 
 class TicketCategory(models.Model):
@@ -37,6 +37,7 @@ class TicketCategory(models.Model):
 
 
 class Ticket(models.Model):
+    is_closed = models.BooleanField(default=False)
     ticket_id = models.CharField(
         default=generate_short_id, editable=False, unique=True, max_length=8
     )
@@ -63,21 +64,21 @@ class Ticket(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="ticket_created_by",
-    )
-    # updated_by = models.ForeignKey(
+    updated_at = models.DateTimeField(auto_now=True)
+    # created_by = models.ForeignKey(
     #     User,
     #     on_delete=models.SET_NULL,
     #     null=True,
     #     blank=True,
-    #     related_name="ticket_updated_by",
+    #     related_name="ticket_created_by",
     # )
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="ticket_updated_by",
+    )
 
     class Meta:
         ordering = ["pk"]

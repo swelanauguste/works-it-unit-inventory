@@ -84,10 +84,10 @@
                                                         Tickets</a></li>
 
                                         {% if request.user.is_authenticated %}
-                                        <li><a href="{% url 'ticket-list' %}"
+                                        <li><a href="{% url 'ticket-open-list' %}"
                                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded">Opened</a>
                                         </li>
-                                        <li><a href="#"
+                                        <li><a href="{% url 'ticket-closed-list' %}"
                                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded">Closed</a>
                                         </li>
                                         {% endif %}

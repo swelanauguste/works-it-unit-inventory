@@ -30,6 +30,8 @@
     <br>
     <a class="btn btn-dark px-5 rounded-4"
         href="{% url 'ticket-update' object.slug %}">Edit</a>
+    <a class="btn btn-outline-warning px-5 rounded-4 ms-2"
+        href="{% url 'ticket-closed' object.slug %}">Closed Ticket</a>
 </div>
 <div class="border border-dark rounded-4 p-5 m-5">
     <div class="row">
