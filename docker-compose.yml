@@ -15,6 +15,20 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    expose:
+      - 6379
+
+  celery:
+    build: ./app
+    command: celery -A cf worker -l INFO
+    depends_on:
+      - web
+      - redis
+
   db:
     image: postgres:15
     volumes:

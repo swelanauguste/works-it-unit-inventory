@@ -6,3 +6,5 @@ django-filter==24.1
 django-pwa==1.1.0
 gunicorn==21.2.0
 psycopg2-binary==2.9.9
+celery==5.3.6
+flower==2.0.1
