@@ -26,11 +26,30 @@ class TicketAssignTechnicianForm(forms.Form):
     )
 
 
-class TicketCreateForm(forms.Form):
-    summary = forms.CharField(max_length=100)
-    file = forms.FileField(required=False, widget=forms.ClearableFileInput())
-    email = forms.EmailField(max_length=100)
-    description = forms.CharField(widget=forms.Textarea)
+# class TicketCreateForm(forms.Form):
+#     summary = forms.CharField(max_length=100)
+#     file = forms.FileField(required=False, widget=forms.ClearableFileInput())
+#     email = forms.EmailField(max_length=100)
+#     description = forms.CharField(widget=forms.Textarea)
+
+
+class TicketCreateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = "__all__"
+        exclude = [
+            "slug",
+            "created_by",
+            "updated_by",
+            "is_closed",
+            "ticket_status",
+            "ticket_category",
+            "assigned_to",
+        ]
+        widgets = {
+            "status": forms.Select(attrs={"class": "form-control"}),
+            "technician": forms.Select(attrs={"class": "form-control"}),
+        }
 
 
 class CommentCreateForm(forms.ModelForm):

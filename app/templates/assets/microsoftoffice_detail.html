@@ -7,54 +7,19 @@
 <div class="container py-5 mb-5">
     <h5>{{object}}</h5>
     <hr>
-    <div class="col-lg-5 p-5 rounded-4 border shadow">
+    <div class="col-lg-5 p-5">
         <p>Product key:
             XXXXX-XXXXX-XXXXX-{{object.product_key|slice:"-11:"|upper}}
-            <span class="material-symbols-outlined"
-                title="copy product key"
-                style="cursor:pointer"
-                onclick="copyToClipboard('#getProductKey')">
-                content_copy
-            </span>
         </p>
         <p>Computer: <a href="{{object.computer.get_absolute_url}}">
-                {{object.computer|default:'Not installed'}}</a></p>
-        <p>Installed: {{object.date_installed|default:'Not installed'}}</p>
+                {{object.computer|default:'-'}}</a></p>
+        <p>Installed: {{object.date_installed|default:'-'}}</p>
         {% if object.comments %}
         <p>Comments: {{object.comments}}</p>
         {% endif %}
-        <span hidden
-            id="getProductKey"
-            value="{{object.remove_hyphens}}">
-            {{object.remove_hyphens}}</span>
-        <div>
-            <a class="btn btn-dark rounded-4 px-5"
-                href="{% url 'microsoft-office-update' object.pk %}">Assign
-                Key</a>
-        </div>
+    
     </div>
 </div>
-<ul hidden
-    id="keyCopiedMessage">
-    <div style="position: fixed; left:2%; bottom:7%; width:fit-content; z-index:1000;"
-        class="hide-me alert rounded-4 border-info  alert-info alert-dismissible fade show"
-        role="alert">
-        <strong class="d-flex flex-wrap">Copied</strong>
-        <button type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"></button>
-    </div>
-</ul>
-<script>
-    function copyToClipboard(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($(element).text().trim()).select();
-        document.execCommand("copy");
-        $temp.remove();
-        document.getElementById("keyCopiedMessage").toggleAttribute("hidden");
-    }
-    $("#id_computer").select2();
-</script>
+
+
 {% endblock content %}

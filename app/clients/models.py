@@ -30,4 +30,4 @@ class Client(models.Model):
         return reverse("client-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.email.lower()})"

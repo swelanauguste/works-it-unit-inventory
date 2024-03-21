@@ -11,7 +11,7 @@ from .views import (
     ComputerUpdateView,
     MicrosoftOfficeDetailView,
     MicrosoftOfficeListView,
-    MicrosoftOfficeUpdateView,
+    MicrosoftOfficeAssignView,
     MonitorCreateView,
     MonitorDetailView,
     MonitorListView,
@@ -32,6 +32,7 @@ from .views import (
     computer_filter_view,
     printer_filter_view,
     # get_next_computer_name_view,
+    ComputerDeleteView
 )
 
 urlpatterns = [
@@ -46,6 +47,11 @@ urlpatterns = [
         "computer/detail/<int:pk>/",
         ComputerDetailView.as_view(),
         name="computer-detail",
+    ),
+    path(
+        "computer/delete/<int:pk>/",
+        ComputerDeleteView.as_view(),
+        name="computer-delete",
     ),
     path(
         "computer/update/<int:pk>/",
@@ -141,7 +147,7 @@ urlpatterns = [
     ),
     path(
         "microsoft-office/update/<int:pk>/",
-        MicrosoftOfficeUpdateView.as_view(),
+        MicrosoftOfficeAssignView.as_view(),
         name="microsoft-office-update",
     ),
 ]

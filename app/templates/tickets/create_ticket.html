@@ -14,11 +14,15 @@
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-grid">
-            <br>
+                <br>
                 <button class="btn btn-dark rounded-4 btn-lg"
                     type="submit">Submit</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+    $("#id_").select2();
+    $("#id_user").select2();
+</script>
 {% endblock content %}

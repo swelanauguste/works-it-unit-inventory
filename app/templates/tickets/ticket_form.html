@@ -7,14 +7,14 @@
     <h1>Ticket Form</h1>
     <hr>
     <div class="row">
-        <div class="col-lg-6 p-5 border border-dark rounded-4">
+        <div class="col-lg-6 mx-auto p-5">
             <form action=""
                 enctype="multipart/form-data"
                 method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <div class="d-grid">
-                    <button class="btn btn-dark"
+                    <button class="btn btn-dark btn-lg rounded-4"
                         type="submit">Submit</button>
                 </div>
             </form>
@@ -23,9 +23,6 @@
     </div>
 </div>
 <script>
-    $("#id_model").select2();
-    $("#id_os").select2();
-    $("#id_department").select2();
-    $("#id_monitor").select2();
+    $("#id_user").select2();
 </script>
 {% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Are you sure you want to delete "{{ object }}"?</h1>
+    <hr>
+    <div class="col-lg">
+        <div class="row">
+            <div class="col">
+                <p>Computer name: {{object.computer_name|upper}}</p>
+                <p>Model: <a href="{{object.model.get_absolute_url}}">
+                        {{object.model|upper}}</a></p>
+                <p>Location: {{object.location}}</p>
+                <!-- <p>IP Address: {{object.ip_addr}}</p> -->
+                <p>Department: {{object.department}}</p>
+                <p>user: {{object.user}}</p>
+                <p>Status: {{object.status}}</p>
+                <p>Received: {{object.date_received}}</p>
+                <p>Installed: {{object.date_installed}}</p>
+                <p>Warranty: {{object.warranty_info}}</p>
+                {% if object.image %}
+                <a class="text-dark"
+                    target="_new"
+                    href="{{object.image.url}}">BELARC</a>
+                {% endif %}
+            </div>
+            <div class="col">
+                <p>Serial Number: {{object.serial_number}}</p>
+                <p>Processor: {{object.model.processor}}</p>
+                <p>RAM/Stoage: {{object.model.ram}}/{{object.model.hdd}} GB
+                </p>
+                <p>OS: {{object.os}}</p>
+                <p>Monitor(s):
+                    {% for monitor in object.monitor.all %}
+                    {{monitor}},
+                    {% endfor %}
+                </p>
+                <p>Note: {{object.notes}}</p>
+                <p>MS Office: {{object.office_installations.last}}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="text-end me-5">
+            <form method="post">{% csrf_token %}
+                <p></p>
+                {{ form }}
+                <input class="btn btn-outline-danger rounded-4 btn-sm"
+                    type="submit"
+                    value="Confirm">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -2,7 +2,7 @@
 <ul>
     {% for message in messages %}
     <div style="position: fixed; left:2%; bottom:7%; width:fit-content; z-index:1000;"
-        class="hide-me alert rounded-4 border-info {% if message.tags %} alert-info {% endif %} alert-dismissible fade show"
+        class="hide-me alert rounded-4 border-info alert-info alert-dismissible fade show"
         role="alert">
         <strong class="d-flex flex-wrap">{{ message }}</strong>
         <button type="button"

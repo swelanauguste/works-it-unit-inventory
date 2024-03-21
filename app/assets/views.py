@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
@@ -19,10 +20,9 @@ from .forms import (
     ComputerModelForm,
     MicrosoftOfficeUpdateForm,
     MonitorForm,
+    MonitorModelForm,
     PrinterForm,
     PrinterModelForm,
-    MonitorForm,
-    MonitorModelForm,
 )
 from .models import ComputerModel  # ComputerName,
 from .models import (
@@ -95,6 +95,25 @@ class MicrosoftOfficeUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
             form.instance.has_failed = True
         elif form.instance.date_installed and not form.instance.computer:
             form.add_error("computer", "Please select a computer for installation.")
+
+        return super().form_valid(form)
+
+
+class MicrosoftOfficeAssignView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = MicrosoftOffice
+    form_class = MicrosoftOfficeUpdateForm
+    success_message = "Assigned to  %(computer)s"
+
+    def form_valid(self, form):
+        if form.instance.has_failed:
+            form.instance.is_installed = False
+            form.instance.has_failed = True
+            form.instance.updated_by = self.request.user
+        elif form.instance.date_installed and not form.instance.computer:
+            form.add_error("computer", "Please select a computer for installation.")
+        else:
+            form.instance.is_installed = True
+            form.instance.updated_by = self.request.user
 
         return super().form_valid(form)
 
@@ -223,6 +242,11 @@ class ComputerCreateView(CreateView):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
+
+
+class ComputerDeleteView(DeleteView):
+    model = Computer
+    success_url = reverse_lazy("computer-list")
 
 
 class ComputerUpdateView(UpdateView):

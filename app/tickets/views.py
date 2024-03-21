@@ -58,15 +58,27 @@ def assign_technician_view(request, slug):
     )
 
 
+class TicketCreateView(CreateView):
+    model = Ticket
+    form_class = TicketCreateForm
+
+    def form_valid(self, form):
+        ticket = form.save(commit=False)
+        email = form.cleaned_data["user"].email
+        ticket.save()
+        send_ticket_creation_email(ticket, email)
+        return super().form_valid(form)
+
+
 def create_ticket_view(request):
     if request.method == "POST":
         form = TicketCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            email = form.cleaned_data["email"]
-            summary = form.cleaned_data["summary"]
-            description = form.cleaned_data["description"]
-            file = form.cleaned_data["file"]
-            print(file, "file")
+            # email = form.cleaned_data["email"]
+            # summary = form.cleaned_data["summary"]
+            # description = form.cleaned_data["description"]
+            # file = form.cleaned_data["file"]
+            # print(file, "file")
 
             try:
                 client = Client.objects.get(email=email)

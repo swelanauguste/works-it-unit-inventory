@@ -54,8 +54,8 @@ class Ticket(models.Model):
     slug = models.SlugField(max_length=8, unique=True, blank=True, null=True)
     user = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     summary = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
     file = models.FileField(upload_to="tickets/", blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     assigned_to = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,

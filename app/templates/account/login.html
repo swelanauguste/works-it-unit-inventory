@@ -9,10 +9,11 @@
 {% trans "Sign In" %}
 {% endblock head_title %}
 {% block content %}
-<div class=" col-lg-5 p-5 border border-dark rounded-4 m-5">
+<div class="col-lg-5 mx-auto p-5 m-5">
     {% element h1 %}
     {% trans "Sign In" %}
     {% endelement %}
+    <hr>
     <p>
         {% blocktrans %}If you have not created an account yet, then please
         <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
