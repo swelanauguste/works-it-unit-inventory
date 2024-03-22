@@ -13,11 +13,12 @@ class TicketUpdateForm(forms.ModelForm):
             "user",
             "created_by",
             "updated_by",
+            "is_closed",
+            "ticket_status",
         ]
-        # widgets = {
-        #     "status": forms.Select(attrs={"class": "form-control"}),
-        #     "technician": forms.Select(attrs={"class": "form-control"}),
-        # }
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 3, "cols": 30}),
+        }
 
 
 class TicketAssignTechnicianForm(forms.Form):
@@ -49,6 +50,7 @@ class TicketCreateForm(forms.ModelForm):
         widgets = {
             "status": forms.Select(attrs={"class": "form-control"}),
             "technician": forms.Select(attrs={"class": "form-control"}),
+            "description": forms.Textarea(attrs={"rows": 3, "cols": 30}),
         }
 
 
@@ -56,7 +58,6 @@ class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["comments"]
-
         widgets = {
             "comments": forms.Textarea(attrs={"rows": 3, "cols": 30}),
         }

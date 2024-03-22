@@ -4,10 +4,10 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <h1>Tickets</h1>
-    <div class="text-end">
+    <div class="d-flex align-items-center justify-content-start">
+        <h1>Tickets</h1>
         <a href="{% url 'ticket-create' %}">
-            <span class="text-success material-symbols-outlined">
+            <span class="ms-3 fs-1 text-success material-symbols-outlined">
                 add_box
             </span>
         </a>
@@ -25,20 +25,28 @@
     <br>
     <div class="table responsive">
         <table class="table table-sm table-hover small">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ticket ID</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Category to</th>
+                    <th scope="col">Assigned to</th>
+                </tr>
+            </thead>
             <tbody>
                 {% for ticket in object_list %}
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td><a class="text-dark"
-                            href="{{ticket.get_absolute_url}}">{{ticket.summary}}</a>
+                            href="{{ticket.get_absolute_url}}">#{{ticket.ticket_id}}</a>
                     </td>
-                    <td>{{ticket.ticket_id}}</td>
-                    <td>{{ticket.ticket_status}}</td>
+                    <td>{{ticket.summary}} ({{ticket.ticket_status}})</td>
+                    <td>{{ticket.user}}</td>
                     <td>{{ticket.ticket_category}}</td>
-                    <td>{{ticket.assigned_to}}</td>
-                    <td><span class="text-muted">{{ticket.created_at}} |
-                            {{ticket.created_at|naturaltime}}</span></td>
-                    <td>{{ticket.updated_at}}</td>
+                    <td class="small text-muted">Updated:
+                        {{ticket.updated_at|naturaltime}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

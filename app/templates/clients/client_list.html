@@ -18,6 +18,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">name</th>
+                    <th scope="col">Role</th>
                     <th scope="col">email</th>
                     <th scope="col">ext</th>
                     <th scope="col">department</th>
@@ -30,6 +31,7 @@
                     <td><a class="text-dark"
                             href="{{client.get_absolute_url}}">{{client.name|title}}</a>
                     </td>
+                    <td>{{client.job_title}}</td>
                     <td><a class="text-dark"
                             href="mailto:{{client.email}}">{{client.email|lower}}</a>
                     </td>

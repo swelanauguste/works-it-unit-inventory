@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import strip_tags
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from users.models import User
+from users.models import User, Profile
 
 from .forms import (
     CommentCreateForm,
@@ -46,7 +46,7 @@ def assign_technician_view(request, slug):
         form = TicketAssignTechnicianForm(request.POST)
         if form.is_valid():
             technician_id = form.cleaned_data["technician_id"]
-            technician = get_object_or_404(User, id=technician_id.id)
+            technician = get_object_or_404(Profile, id=technician_id.id)
             ticket.assigned_to = technician
             ticket.save()
             return redirect("ticket-detail", slug=ticket.slug)

@@ -5,7 +5,7 @@ from clients.models import Client
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
-from users.models import User
+from users.models import User, Profile
 
 
 def generate_short_id():
@@ -37,6 +37,9 @@ class TicketCategory(models.Model):
 
 
 class Ticket(models.Model):
+    user = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    summary = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
     is_closed = models.BooleanField(default=False)
     ticket_id = models.CharField(
         default=generate_short_id, editable=False, unique=True, max_length=8
@@ -52,12 +55,9 @@ class Ticket(models.Model):
         TicketCategory, on_delete=models.SET_NULL, null=True, verbose_name="category"
     )
     slug = models.SlugField(max_length=8, unique=True, blank=True, null=True)
-    user = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
-    summary = models.CharField(max_length=100)
     file = models.FileField(upload_to="tickets/", blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
     assigned_to = models.ForeignKey(
-        User,
+        Profile,
         on_delete=models.SET_NULL,
         null=True,
         related_name="assigned_to",
@@ -81,7 +81,7 @@ class Ticket(models.Model):
     )
 
     class Meta:
-        ordering = ["pk"]
+        ordering = ["-created_at"]
 
     def get_absolute_url(self):
         return reverse("ticket-detail", kwargs={"slug": self.slug})

@@ -4,7 +4,6 @@
 
 {% load humanize %}
 
-
 {% block content %}
 <div class="p-5 m-5">
     <h1>{{object.summary}} ({{object.ticket_id}}) -
@@ -18,34 +17,27 @@
         {% endif %}
     </h1>
     <hr>
-    <div class="row">
-        <div class="bg-light px-5 py-3 rounded-4 shadow">
-            <p>{{object.description}}</p>
-            <div class="text-end">
-                <span
-                    class="small text-muted">{{object.created_at|naturaltime}}</span>
-            </div>
-        </div>
-    </div>
+
     <br>
-    <a class="btn btn-dark px-5 rounded-4"
-        href="{% url 'ticket-update' object.slug %}">Edit</a>
-    <a class="btn btn-outline-warning px-5 rounded-4 ms-2"
-        href="{% url 'ticket-closed' object.slug %}">Closed Ticket</a>
-</div>
-<div class="border border-dark rounded-4 p-5 m-5">
     <div class="row">
-        <div class="col">
+        <div class="col p-5 shadow border rounded-4 mx-5"
+            style="height: fit-content;">
+            <div class="text-end">
+                <a class="btn btn-dark px-5 rounded-4"
+                    href="{% url 'ticket-update' object.slug %}">Edit</a>
+                <a class="btn btn-warning px-5 rounded-4 ms-2"
+                    href="{% url 'ticket-closed' object.slug %}">Close
+                    Ticket</a>
+            </div>
+            <hr>
             {% if not object.assigned_to %}
-
             <h2>Assign Technician to Ticket</h2>
-
             <form method="post"
                 action="{% url 'assign-technician' ticket.slug %}">
                 {% csrf_token %}
                 {{ assign_technician_form|crispy }}
-                <div class="d-grid">
-                    <button class="btn btn-dark"
+                <div class="text-end">
+                    <button class="btn btn-dark px-5 rounded-4 btn-lg"
                         type="submit">Assign Technician</button>
                 </div>
             </form>
@@ -54,38 +46,53 @@
             <p>Assigned To: <span
                     class="fs-3 fw-bold">{{object.assigned_to}}</span>
             </p>
-
+            {% endif %}
+            <div class="">
+                {% if object.description %}
+                <div class="col">
+                    <div class="bg-light px-5 py-3 rounded-4 border">
+                        <p>{{object.description}}</p>
+                        <div class="text-end">
+                            <span
+                                class="small text-muted">{{object.created_at|naturaltime}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% endif %}
         </div>
-        <div class="col-lg">
+        <div class="col border rounded-4 shadow mx-3 p-5">
             <form method="post"
                 action="{% url 'add-comment' object.slug %}">
                 {% csrf_token %}
                 {{ comment_form|crispy }}
-                <div class="d-grid">
-                    <button class="btn btn-dark"
+                <div class="text-end">
+                    <br>
+                    <button class="btn btn-dark px-5 rounded-4 btn-lg"
                         type="submit">Add Comment</button>
                 </div>
             </form>
-        </div>
-    </div>
-    {% if object.comments.all %}
-    <br>
-    <section>
-        <div class="row">
-            <div class="col">
-                <h3>Comments</h3>
-                {% for comment in object.comments.all %}
-                <p class="border p-3 rounded-4 shadow bg-info bg-opacity-10">
-                    {{ comment.comments }}
-                    <span
-                        class="ms-3 small text-muted">{{comment.created_at|naturaltime}}</span>
-                </p>
-                {% endfor %}
+            <div class="row">
+                {% if object.comments.all %}
+                <br>
+                <div class="col">
+                    <h3>Comments</h3>
+                    {% for comment in object.comments.all %}
+                    <p
+                        class="border p-3 rounded-4 shadow bg-info bg-opacity-10">
+                        {{ comment.comments }}
+                        <span
+                            class="ms-3 small text-muted">{{comment.created_at|naturaltime}}</span>
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-
         </div>
-    </section>
-    {% endif %}
+
+    </div>
+
 </div>
+
 {% endblock content %}

@@ -258,6 +258,11 @@ class Computer(models.Model):
         blank=True,
         related_name="computer_updated_by",
     )
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     class Meta:
         ordering = ["computer_name"]
