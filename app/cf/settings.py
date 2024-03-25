@@ -203,10 +203,10 @@ LOGOUT_URL = "/accounts/login/"
 
 
 # # EMAIL
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = "emails"
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = "emails"
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 # EMAIL_HOST = "mail.govt.lc"
 EMAIL_HOST_USER = os.environ.get("EMAIL")
