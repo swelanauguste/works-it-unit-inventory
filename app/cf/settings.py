@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "assets",
     "clients",
     "tickets",
+    "stickers",
 ]
 
 MIDDLEWARE = [

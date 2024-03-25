@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <h1>Sticker form</h1>
+    <hr>
+    <div class="col-lg-12 p-5 mx-auto">
+        <form action=""
+            method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg">
+                    {{ form.sticker|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.expires|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.name|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.no_plate|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.receipt|as_crispy_field }}
+                </div>
+            </div>
+            <div class="text-end">
+                <br>
+                <button class="btn btn-dark btn-lg px-5 rounded-4"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

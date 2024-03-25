@@ -7,7 +7,8 @@ from django.utils.text import slugify
 
 
 class User(AbstractUser):
-    is_tech = models.BooleanField(default=True)
+    is_tech = models.BooleanField(default=False)
+    is_clerk = models.BooleanField(default=True)
     is_manager = models.BooleanField(default=False)
 
     def get_user_roles(self):
@@ -16,6 +17,8 @@ class User(AbstractUser):
             roles.append("is_tech")
         if self.is_manager:
             roles.append("is_manager")
+        if self.is_clerk:
+            roles.append("is_clerk")
 
         return roles if roles else ["user"]
 

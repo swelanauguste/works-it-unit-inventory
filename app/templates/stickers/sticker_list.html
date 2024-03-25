@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="d-flex justify-content-start align-items-center">
+        <h1>Stickers</h1>
+        <a href="{% url 'sticker-create' %}">
+            <span class="ms-5 fs-1 text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
+    </div>
+    <hr>
+
+    <div class="d-flex justify-content-start align-items-center mt-3">
+        <div class="col-lg-6 mx-auto py-3">
+            <form action=""
+                method="get">
+                <input class="form-control form-control-lg rounded-4"
+                    type="search"
+                    name="stickers"
+                    placeholder="Search sticker..."
+                    id="">
+            </form>
+            <div class="text-end small">
+                <a class=" text-muted me-2"
+                    href="">Advance
+                    filter</a>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="shadow p-5 rounded-4">
+        <form action="{% url 'sticker-create' %}"
+            method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg">
+                    {{ form.sticker|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.expires|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.name|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.no_plate|as_crispy_field }}
+                </div>
+                <div class="col-lg">
+                    {{ form.receipt|as_crispy_field }}
+                </div>
+            </div>
+            <div class="text-end">
+                <br>
+                <button class="btn btn-dark px-5 rounded-4"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <section>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a
+                    href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of
+                    {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last
+                    &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sticker</th>
+                        <th scope="col">Expires</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Number plate</th>
+                        <th scope="col">Receipt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sticker in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'sticker-detail' sticker.pk %}">{{sticker.sticker|upper}}
+                            </a>
+                        </td>
+                        <td>{{sticker.expires|upper}}</td>
+                        <td>{{sticker.name|upper}}</td>
+                        <td>{{sticker.no_plate|upper}}</td>
+                        <td>{{sticker.receipt|default:"-"|upper}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a
+                    href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of
+                    {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last
+                    &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}
