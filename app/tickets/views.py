@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import strip_tags
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from users.models import User, Profile
+from users.models import Profile, User
 
 from .forms import (
     CommentCreateForm,
@@ -179,6 +179,8 @@ def add_comment_view(request, slug):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.ticket = ticket
+            if request.user.is_authenticated:
+                comment.created_by = request.user
             comment.save()
             return redirect("ticket-detail", slug=slug)
 
@@ -186,3 +188,8 @@ def add_comment_view(request, slug):
     return render(
         request, "ticket_detail.html", {"ticket": ticket, "comment_form": form}
     )
+
+
+def assigned_tickets_view(request):
+    tickets = Ticket.objects.filter(assigned_to=request.user.profile)
+    return render(request, "tickets/ticket_list.html", {"object_list": tickets})

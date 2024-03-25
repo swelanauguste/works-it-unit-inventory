@@ -9,6 +9,7 @@ from .views import (
     TicketUpdateView,
     add_comment_view,
     assign_technician_view,
+    assigned_tickets_view,
     closed_ticket_view,
     create_ticket_view,
 )
@@ -31,4 +32,5 @@ urlpatterns = [
         name="assign-technician",
     ),
     path("ticket/add-comment/<slug:slug>/", add_comment_view, name="add-comment"),
+    path("assigned-tickets/", assigned_tickets_view, name="assigned-tickets"),
 ]

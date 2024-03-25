@@ -7,11 +7,14 @@
     <h1>{{object}}</h1>
     <hr>
     <div class="col-lg-4 mx-auto">
+
+        {% if request.user.is_authenticated %}
         <div class="text-end">
             <a href="{% url 'client-update' object.id %}"
                 class="btn btn-outline-dark px-5 btn-lg rounded-4">Edit</a>
         </div>
         <hr>
+        {% endif %}
         <ul>
             <li>Role: {{object.job_title}}</li>
             <li>Department: {{object.department}}</li>

@@ -12,6 +12,7 @@
             </span>
         </a>
     </div>
+    <hr>
     <div class="col-lg-6 mx-auto py-3">
         <form action=""
             method="get">
@@ -30,6 +31,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Ticket ID</th>
                     <th scope="col">Summary</th>
+                    <th scope="col">Assigned to</th>
                     <th scope="col">Client</th>
                     <th scope="col">Category to</th>
                     <th scope="col">Assigned to</th>
@@ -43,6 +45,7 @@
                             href="{{ticket.get_absolute_url}}">#{{ticket.ticket_id}}</a>
                     </td>
                     <td>{{ticket.summary}} ({{ticket.ticket_status}})</td>
+                    <td>{{ticket.assigned_to|default:"Unassigned"}}</td>
                     <td>{{ticket.user}}</td>
                     <td>{{ticket.ticket_category}}</td>
                     <td class="small text-muted">Updated:

@@ -167,18 +167,17 @@
 
 <body>
     {% include 'messages.html' %}
-
-    <div class="d-flex justify-content-between">
-        <div>
-            {% include 'sidebar.html' %}
-        </div>
-        <div class="shadow-lg rounded-4 m-5"
-            style="width: 100%;">
+    <div class="row">
+        {% include 'sidebar.html' %}
+        <div class="col-lg-11">
             {% block content %}
 
             {% endblock content %}
         </div>
     </div>
+
+    {% include 'footer.html' %}
+
 
     <script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
