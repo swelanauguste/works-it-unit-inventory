@@ -8,20 +8,24 @@
     <hr>
     <div class="shadow p-5 rounded-4 mb-5">
         <form method="get">
+
             <div class="row">
                 <div class="col-lg-3">
-                    {{ filter.form.model|as_crispy_field }}
+                    {{ filter.form.date |as_crispy_field }}
                 </div>
                 <div class="col-lg-3">
-                    {{ filter.form.status|as_crispy_field }}
-                </div>
-                <div class="col-lg-3">
-                    {{ filter.form.location|as_crispy_field }}
-                </div>
-                <div class="col-lg-3">
-                    {{ filter.form.department|as_crispy_field }}
+                    {{ filter.form.expires__lte|as_crispy_field }}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    {{ filter.form.created_at__gte|as_crispy_field }}
+                </div>
+                <div class="col-lg-3">
+                    {{ filter.form.created_at__lte|as_crispy_field }}
+                </div>
+            </div>
+
             <div class="text-end">
                 <button class="btn btn-dark btn-lg px-5 rounded-4"
                     type="submit">Filter</button>
@@ -56,25 +60,26 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Printer name</th>
-                        <th scope="col">Serial number</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Sticker</th>
+                        <th scope="col">Expires</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Number plate</th>
+                        <th scope="col">Created</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for printer in filter.qs %}
+                    {% for sticker in filter.qs %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td><a class="text-dark"
-                                href="{% url 'printer-detail' printer.pk %}">{{printer.printer_name|upper}}
+                                href="{% url 'sticker-detail' sticker.pk %}">{{sticker.sticker|upper}}
                             </a>
                         </td>
-                        <td>{{printer.serial_number|upper}}</td>
-                        <td>{{printer.model|upper}}</td>
-                        <td>{{printer.location|upper}}</td>
-                        <td>{{printer.status|upper}}</td>
+                        <td>{{sticker.expires}}</td>
+                        <td>{{sticker.name|upper}}</td>
+                        <td>{{sticker.no_plate|upper}}</td>
+                        <td>{{sticker.created_at|date:"SHORT_DATE_FORMAT"}}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -102,14 +107,6 @@
         </div>
     </section>
 </div>
-<script>
-    $("#id_model").select2();
-    $("#id_os").select2();
-    $("#id_department").select2();
-    $("#id_monitor").select2();
-    $("#id_status").select2();
-    $("#id_project").select2();
-    $("#id_location").select2();
-</script>
+
 
 {% endblock content %}

@@ -1,34 +1,34 @@
 {% extends 'base.html' %}
 
-{% load crispy_forms_tags %}
-
 {% block content %}
 <div class="p-5 mb-5">
-    <h1>Printer Filter</h1>
-    <hr>
-    <div class="shadow p-5 rounded-4 mb-5">
-        <form method="get">
-            <div class="row">
-                <div class="col-lg-3">
-                    {{ filter.form.model|as_crispy_field }}
-                </div>
-                <div class="col-lg-3">
-                    {{ filter.form.status|as_crispy_field }}
-                </div>
-                <div class="col-lg-3">
-                    {{ filter.form.location|as_crispy_field }}
-                </div>
-                <div class="col-lg-3">
-                    {{ filter.form.department|as_crispy_field }}
-                </div>
-            </div>
-            <div class="text-end">
-                <button class="btn btn-dark btn-lg px-5 rounded-4"
-                    type="submit">Filter</button>
-            </div>
-        </form>
+    <div class="d-flex justify-content-start align-items-center">
+        <h1>Licence Cards</h1>
+        <a href="{% url 'card-create' %}">
+            <span class="ms-5 fs-1 text-success material-symbols-outlined">
+                add_box
+            </span>
+        </a>
     </div>
     <hr>
+    <div class="d-flex justify-content-start align-items-center mt-3">
+        <div class="col-lg-6 mx-auto py-3">
+            <form action=""
+                method="get">
+                <input class="form-control form-control-lg rounded-4"
+                    type="search"
+                    name="cards"
+                    placeholder="Search cards..."
+                    id="">
+            </form>
+            <div class="text-end small">
+                <a class=" text-muted me-2"
+                    href="{% url 'card-filter' %}">Advance
+                    filter</a>
+            </div>
+        </div>
+    </div>
+    <br>
     <section>
         <div class="pagination">
             <span class="step-links">
@@ -37,12 +37,10 @@
                 <a
                     href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
-
                 <span class="current">
                     Page {{ page_obj.number }} of
                     {{ page_obj.paginator.num_pages }}.
                 </span>
-
                 {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">next</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}">last
@@ -50,31 +48,30 @@
                 {% endif %}
             </span>
         </div>
-
         <div class="table-responsive px-5">
             <table class="table table-hover table-sm small">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Printer name</th>
-                        <th scope="col">Serial number</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Licence</th>
+                        <th scope="col">Licence No.</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Expires</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for printer in filter.qs %}
+                    {% for card in object_list %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td><a class="text-dark"
-                                href="{% url 'printer-detail' printer.pk %}">{{printer.printer_name|upper}}
+                                href="{% url 'card-detail' card.pk %}">{{card.name|upper}}
                             </a>
                         </td>
-                        <td>{{printer.serial_number|upper}}</td>
-                        <td>{{printer.model|upper}}</td>
-                        <td>{{printer.location|upper}}</td>
-                        <td>{{printer.status|upper}}</td>
+                        <td>{{card.licence|upper}}</td>
+                        <td>{{card.licence_no|upper}}</td>
+                        <td>{{card.category|upper}}</td>
+                        <td>{{card.expires|upper}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -87,7 +84,6 @@
                 <a
                     href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
-
                 <span class="current">
                     Page {{ page_obj.number }} of
                     {{ page_obj.paginator.num_pages }}.
@@ -102,14 +98,4 @@
         </div>
     </section>
 </div>
-<script>
-    $("#id_model").select2();
-    $("#id_os").select2();
-    $("#id_department").select2();
-    $("#id_monitor").select2();
-    $("#id_status").select2();
-    $("#id_project").select2();
-    $("#id_location").select2();
-</script>
-
 {% endblock content %}

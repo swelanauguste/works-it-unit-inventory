@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1>{{object.name}}</h1>
+    <hr>
+    <div class="col-lg p-5">
+
+        <div class="text-end pb-3">
+            <a class="btn btn-dark px-5 rounded-4"
+                href="{% url 'card-update' object.pk %}">Edit</a>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-3">
+                {% if object.photo %}
+                <img class="border border-dark rounded-4 border-2"
+                    style="width: 90%;"
+                    src="{{object.photo.url}}"
+                    alt="">
+                {% endif %}
+                {% if object.signature %}
+                <img style="width: 100%;"
+                    src="{{object.signature.url}}"
+                    alt="">
+                {% endif %}
+            </div>
+            <div class="col">
+                <p>Licence: {{object.licence|title}}</p>
+                <p>Licence No.: {{object.licence_no}}</p>
+                <p>Category.: {{object.category}}</p>
+                <p>Expires.: {{object.expires}}</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

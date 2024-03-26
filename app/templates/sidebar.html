@@ -118,6 +118,10 @@
                                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded">Assigned
                                                         tickets</a>
                                         </li>
+                                        <li><a href="{% url 'card-list' %}"
+                                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Licence
+                                                        Cards</a>
+                                        </li>
                                         {% endif %}
                                         {% if request.user.is_clerk %}
                                         <li><a href="{% url 'sticker-clerk-list' %}"

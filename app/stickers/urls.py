@@ -5,6 +5,7 @@ from .views import (
     StickerCreateView,
     StickerDetailView,
     StickerUpdateView,
+    sticker_filter_view
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path(
         "stickers/<int:pk>/update/", StickerUpdateView.as_view(), name="sticker-update"
     ),
+    path('sticker-filter', sticker_filter_view, name='sticker-filter'),
 ]
