@@ -1,21 +1,27 @@
+{% load static %}
 <br><br>
 <footer
-        class="px-5 d-flex flex-wrap justify-content-between mt-5 bg-white align-items-center py-3 my-4 border-top sticky-bottom">
-        <p class="col-md-4 mb-0 text-body-secondary">&copy; {% now "Y"%} IT
-                Unit
+        class="px-5 d-flex flex-wrap justify-content-between mt-5 bg-white align-items-center py-3  border-top fixed-bottom">
+        <p class="col-md-0 mb-0 text-body-secondary">&copy; {% now "Y"%} <img
+                        src="{% static 'images/logo.png' %}"
+                        alt=""
+                        width="20"
+                        height="20"
+                        class="rounded-circle">
         </p>
         <a href="/"
-                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <svg class="bi me-2"
-                        width="40"
-                        height="32">
-                        <use xlink:href="#bootstrap" />
-                </svg>
+                class="col-md- d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+
         </a>
         <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#"
+                <li class="nav-item"><span
                                 class="nav-link px-2 text-body-secondary">EXT:
-                                4343/4342</a>
+                                <a class="fw-bold"
+                                        href="tel:4684343">4343</a>/<a
+                                        class="fw-bold"
+                                        href="tel:4684342">4342</a>/<a
+                                        class="fw-bold"
+                                        href="mailto:it-unit.works@govt.lc">e-mail</a></span>
                 </li>
                 <li class="nav-item"><a target="_blank"
                                 href="https://digigov.govt.lc/"

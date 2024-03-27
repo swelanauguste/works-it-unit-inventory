@@ -41,6 +41,10 @@ def closed_ticket_view(request, slug):
 
 def assign_technician_view(request, slug):
     ticket = get_object_or_404(Ticket, slug=slug)
+    current_site = Site.objects.get_current()
+    domain = current_site.domain
+    ticket_url = reverse("ticket-detail", kwargs={"slug": ticket.slug})
+    full_url = f"http://{domain}{ticket_url}"
 
     if request.method == "POST":
         form = TicketAssignTechnicianForm(request.POST)
@@ -49,6 +53,15 @@ def assign_technician_view(request, slug):
             technician = get_object_or_404(Profile, id=technician_id.id)
             ticket.assigned_to = technician
             ticket.save()
+            send_mail(
+                f"Ticket {ticket.ticket_id} was assigned to you",
+                f"Dear {technician}, \nYour ticket is at: {full_url}",
+                "it.works@mail.local",
+                [
+                    technician.user.email,
+                ],
+                # html_message=html_message,
+            )
             return redirect("ticket-detail", slug=ticket.slug)
     else:
         form = AssignTechnicianForm()
@@ -120,7 +133,12 @@ def send_ticket_creation_email(ticket, recipient_email):
         subject,
         plain_message,
         "it.works@mail.local",
-        [recipient_email],
+        [
+            recipient_email,
+            "desiree.jnbaptiste@govt.lc",
+            "cmcclauren@gosl.gov.lc",
+            "swelan.auguste@govt.lc",
+        ],
         html_message=html_message,
     )
 

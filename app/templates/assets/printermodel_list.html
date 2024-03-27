@@ -15,7 +15,7 @@
     </div>
     <hr>
 
-    <div class="col-lg-4 mx-auto">
+    <div class="col-lg-4 col-12 mx-auto">
         <form action=""
             method="get">
             <input class="form-control form-control-lg rounded-4"
@@ -42,7 +42,7 @@
                             <th scope="row">{{forloop.counter}}</th>
                             <td><a class="text-dark"
                                     href="{% url 'printer-model-detail' model.pk %}">{{model.maker|upper}}
-                                    -{{model.name|upper}}
+                                    - {{model.name|upper}}
                                 </a>
                             </td>
                         </tr>

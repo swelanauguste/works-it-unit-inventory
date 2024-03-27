@@ -32,7 +32,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Maker</th>
                         <th scope="col">Processor</th>
                         <th scope="col">RAM (GB)</th>
                         <th scope="col">Storage (GB)</th>
@@ -43,11 +42,11 @@
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td><a class="text-dark"
-                                href="{% url 'computer-model-detail' model.pk %}">{{model.name|upper}}
+                                href="{% url 'computer-model-detail' model.pk %}">{{model.maker|upper}}
+                                {{model.name|upper}}
                             </a>
                         </td>
                         <td>{{model.computer_type|upper}}</td>
-                        <td>{{model.maker|upper}}</td>
                         <td>{{model.processor}}</td>
                         <td>{{model.ram}}</td>
                         <td>{{model.hdd}}</td>

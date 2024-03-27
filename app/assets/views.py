@@ -137,7 +137,7 @@ def add_computer_comment_view(request, pk):
 
 class ComputerListView(ListView):
     model = Computer
-    paginate_by = 25
+    paginate_by = 50
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,6 +164,7 @@ class ComputerListView(ListView):
                 | Q(location__name__icontains=query)
                 | Q(department__name__icontains=query)
                 | Q(project__name__icontains=query)
+                | Q(notes__icontains=query)
             ).distinct()
         return Computer.objects.all()
 

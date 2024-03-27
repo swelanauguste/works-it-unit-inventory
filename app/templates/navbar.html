@@ -1,0 +1,172 @@
+{% load static %}
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+        <div
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/"
+                class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none me-5 fw-bold">
+                <img src="{% static 'images/logo.png' %}"
+                    alt=""
+                    width="32"
+                    height="32"
+                    class="rounded-circle">
+            </a>
+
+            <ul
+                class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                {% if request.user.is_authenticated %}
+                {% if request.user.is_tech %}
+
+                <div class="dropdown text-end">
+                    <a href="#"
+                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Computers
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item"
+                                href="{% url 'computer-list' %}">Overview</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'computer-model-list' %}">
+                                Computer models</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'monitor-list' %}">Monitors</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'monitor-model-list' %}">
+                                Monitor models</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'microsoft-office-list' %}">Office
+                                Suite</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown text-end">
+                    <a href="#"
+                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Printers
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item"
+                                href="{% url 'printer-list' %}">Overview</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'printer-model-list' %}">
+                                Models</a></li>
+
+                    </ul>
+                </div>
+                <div class="dropdown text-end">
+                    <a href="#"
+                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Tickets
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item"
+                                href="{% url 'ticket-open-list' %}">Opened</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'ticket-closed-list' %}">
+                                Closed</a></li>
+
+                    </ul>
+                </div>
+                <li><a href="{% url 'card-list' %}"
+                        class="nav-link px-2 link-body-emphasis">Licencing
+                        cards</a>
+                </li>
+                {% endif %}
+
+                {% if request.user.is_clerk %}
+
+                <li><a href="{% url 'sticker-clerk-list' %}"
+                        class="nav-link px-2 link-body-emphasis">Stickers</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                <div class="dropdown text-end">
+                    <a href="#"
+                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Clients
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item"
+                                href="{% url 'client-list' %}">Overview</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'client-ticket-list' %}">
+                                My Tickets</a></li>
+                    </ul>
+                </div>
+
+
+                <li><a href="#"
+                        class="nav-link px-2 link-body-emphasis">Products</a>
+                </li>
+            </ul>
+
+            <div class="dropdown text-end">
+                <a href="#"
+                    class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+
+                    {% if request.user.profile.photo %}
+                    <img src="{{request.user.profile.photo.url}}"
+                        alt="mdo"
+                        width="32"
+                        height="32"
+                        class="rounded-circle">
+                    {% else %}
+                    <img src="{% static 'images/default-avatarpng.png' %}"
+                        alt="mdo"
+                        width="32"
+                        height="32"
+                        class="rounded-circle">
+                    {% endif %}
+
+
+                </a>
+
+                <ul class="dropdown-menu text-small">
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_tech %}
+                    <li><a class="dropdown-item"
+                            href="{% url 'assigned-tickets' %}">Assigned
+                            tickets</a></li>
+                    <li><a class="dropdown-item"
+                            href="{% url 'profile-update' request.user.profile.slug %}">Profile</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item"
+                            href="{% url 'account_logout' %}">Sign out</a></li>
+                    {% else %}
+
+                    <li><a class="dropdown-item"
+                            href="{% url 'account_login' %}">Sign in</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</header>

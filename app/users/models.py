@@ -31,6 +31,7 @@ class Profile(models.Model):
         ("F", "Female"),
         ("M", "Male"),
     ]
+    photo = models.FileField(upload_to="profile_photos/", blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
