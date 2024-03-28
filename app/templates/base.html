@@ -61,11 +61,11 @@
     {% include 'messages.html' %}
 
     {% include 'navbar.html' %}
+    <div class="vh-100">
+        {% block content %}
 
-    {% block content %}
-
-    {% endblock content %}
-
+        {% endblock content %}
+    </div>
     {% include 'footer.html' %}
 
 
