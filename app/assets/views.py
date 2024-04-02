@@ -53,7 +53,7 @@ class MicrosoftOfficeListView(LoginRequiredMixin, ListView):
     model = MicrosoftOffice
 
     def get_queryset(self):
-        queryset = MicrosoftOffice.objects.filter(is_installed=False)
+        queryset = MicrosoftOffice.objects.filter(is_installed=False, has_failed=False)
         query = self.request.GET.get("microsoft_office_search")
 
         if query:

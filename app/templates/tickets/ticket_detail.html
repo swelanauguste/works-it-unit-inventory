@@ -27,9 +27,13 @@
             <div class="text-end">
                 <a class="btn btn-dark px-5 rounded-4"
                     href="{% url 'ticket-update' object.slug %}">Edit</a>
+            {% if not object.is_closed %}
+
                 <a class="btn btn-warning px-5 rounded-4 ms-2"
                     href="{% url 'ticket-closed' object.slug %}">Close
                     Ticket</a>
+            {% endif %}
+
             </div>
             <hr>
             {% if not object.assigned_to %}
@@ -54,10 +58,10 @@
             {% if object.description %}
             <div class="col">
                 <div class="p-3 border rounded-4 shadow">
-                    <p><span class="fw-bold">Details:
-                        </span>{{object.description}}<span
-                            class="small text-muted ms-3">{{object.created_at|naturaltime}}</span>
-                    </p>
+                    <span class="fw-bold">Details:
+                    </span>{{object.description}}<span
+                        class="small text-muted ms-3">{{object.created_at|naturaltime}}</span>
+
                 </div>
             </div>
             <br>
