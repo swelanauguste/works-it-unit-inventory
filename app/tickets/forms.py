@@ -14,7 +14,6 @@ class TicketUpdateForm(forms.ModelForm):
             "created_by",
             "updated_by",
             "is_closed",
-            "ticket_status",
         ]
         widgets = {
             "description": forms.Textarea(attrs={"rows": 3, "cols": 30}),
