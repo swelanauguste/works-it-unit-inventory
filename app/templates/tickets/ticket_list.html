@@ -5,7 +5,7 @@
 {% block content %}
 <div class="p-5 mb-5">
     <div class="d-flex align-items-center justify-content-start">
-        <h1>Tickets (<span title="active">{{tickets_not_closed}}</span>/ <span
+        <h1>Tickets (<span title="active">{{tickets_not_closed}}</span>/<span
                 title="all">{{all_tickets_count}}</span>)</h1>
         <a href="{% url 'ticket-create' %}">
             <span class="ms-3 fs-1 text-success material-symbols-outlined">
