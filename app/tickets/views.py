@@ -146,6 +146,12 @@ def send_ticket_creation_email(ticket, recipient_email):
 class TicketOpenListView(ListView):
     model = Ticket
     paginate_by = 25
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["all_tickets_count"] = Ticket.objects.all().count()
+        context["tickets_not_closed"] = Ticket.objects.filter(is_closed=False).count()
+        return context
 
     def get_queryset(self):
         return (
