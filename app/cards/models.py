@@ -30,8 +30,11 @@ class Card(models.Model):
     name = models.CharField(max_length=200)
     licence = models.ForeignKey(Licence, on_delete=models.CASCADE)
     licence_no = models.CharField(max_length=5, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=True, blank=True
+    )
     expires = models.DateField(blank=True)
+    is_printed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
