@@ -213,7 +213,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("PASS")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-# DEFAULT_FROM_EMAIL = "kingship.lc@gmail.com"
+DEFAULT_FROM_EMAIL = "ict.infrastructure@govt.lc"
 
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # EMAIL_FILE_PATH = "emails"

@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.utils.html import strip_tags
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from users.models import Profile, User
+from django.conf import settings
 
 from .forms import (
     CommentCreateForm,
@@ -56,7 +57,7 @@ def assign_technician_view(request, slug):
             send_mail(
                 f"Ticket {ticket.ticket_id} was assigned to you",
                 f"Dear {technician}, \nYour ticket is at: {full_url}",
-                "it.works@mail.local",
+                settings.DEFAULT_FROM_EMAIL,
                 [
                     technician.user.email,
                 ],
@@ -132,12 +133,10 @@ def send_ticket_creation_email(ticket, recipient_email):
     send_mail(
         subject,
         plain_message,
-        "it.works@mail.local",
+        settings.DEFAULT_FROM_EMAIL,
         [
             recipient_email,
-            "desiree.jnbaptiste@govt.lc",
-            "cmcclauren@gosl.gov.lc",
-            "swelan.auguste@govt.lc",
+            settings.DEFAULT_FROM_EMAIL,
         ],
         html_message=html_message,
     )

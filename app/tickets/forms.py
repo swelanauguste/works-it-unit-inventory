@@ -1,5 +1,5 @@
 from django import forms
-from users.models import User
+from users.models import User, Profile
 
 from .models import Comment, Ticket
 
@@ -22,7 +22,7 @@ class TicketUpdateForm(forms.ModelForm):
 
 class TicketAssignTechnicianForm(forms.Form):
     technician_id = forms.ModelChoiceField(
-        queryset=User.objects.filter(is_tech=True), empty_label="Select Technician"
+        queryset=Profile.objects.filter(user__is_tech=True), empty_label="Select Technician"
     )
 
 
