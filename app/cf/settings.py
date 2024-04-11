@@ -206,8 +206,8 @@ LOGOUT_URL = "/accounts/login/"
 
 # # EMAIL SETTINGS
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_HOST = "mail.govt.lc"
+# EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = "mail.govt.lc"
 EMAIL_HOST_USER = os.environ.get("EMAIL")
 EMAIL_HOST_PASSWORD = os.environ.get("PASS")
 EMAIL_PORT = 587
