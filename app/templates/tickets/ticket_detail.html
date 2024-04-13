@@ -17,13 +17,10 @@
         {% endif %}
     </h1>
     <hr>
-
+    <p><strong>User: </strong>{{object.user.name}}, {{object.user.job_title}}, {{object.user.department.name}}, {{object.user.email}}, {{object.user.ext}}</p>
     <div class="row">
         <div class="col p-5">
-
             {% if request.user.is_authenticated %}
-
-
             <div class="text-end">
                 <a class="btn btn-dark px-5 rounded-4"
                     href="{% url 'ticket-update' object.slug %}">Edit</a>
@@ -33,7 +30,6 @@
                     href="{% url 'ticket-closed' object.slug %}">Close
                     Ticket</a>
             {% endif %}
-
             </div>
             <hr>
             {% if not object.assigned_to %}
