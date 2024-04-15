@@ -87,6 +87,10 @@
                         class="nav-link px-2 link-body-emphasis">Licencing
                         cards</a>
                 </li>
+                <li><a href="{% url 'knowledgebase-list' %}"
+                        class="nav-link px-2 link-body-emphasis">Knowledge base
+                    </a>
+                </li>
                 {% endif %}
 
                 {% if request.user.is_clerk %}

@@ -13,6 +13,7 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("stickers/", include("stickers.urls")),
     path("cards/", include("cards.urls")),
+    path("knowledge-base/", include("knowledgebase.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
