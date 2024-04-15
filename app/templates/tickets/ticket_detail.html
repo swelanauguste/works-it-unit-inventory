@@ -17,7 +17,7 @@
         {% endif %}
     </h1>
     <hr>
-    <p><strong>User: </strong>{{object.user.name}}, {{object.user.job_title}}, {{object.user.department.name}}, {{object.user.email}}, {{object.user.ext}}</p>
+    <p><strong>User: </strong>{{object.user.name|title}}, {{object.user.job_title|upper}}, {{object.user.department.name|upper}}, {{object.user.email}}, {{object.user.ext}}</p>
     <div class="row">
         <div class="col p-5">
             {% if request.user.is_authenticated %}
@@ -29,11 +29,7 @@
                 <a class="btn btn-warning px-5 rounded-4 ms-2"
                     href="{% url 'ticket-closed' object.slug %}">Close
                     Ticket</a>
-<<<<<<< HEAD
-            {% endif %}
-=======
                 {% endif %}
->>>>>>> f835a13 (knowledge base)
             </div>
             <hr>
             {% if not object.assigned_to %}
