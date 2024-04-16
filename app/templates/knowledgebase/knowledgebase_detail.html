@@ -6,7 +6,6 @@
     <h1>{{object}}</h1>
     <hr>
     <div class="col-lg p-5">
-
         <div class="text-end pb-3">
             <a class="btn btn-dark px-5 rounded-4"
                 href="{% url 'knowledgebase-update' object.pk %}">Edit</a>
@@ -15,7 +14,10 @@
             {% if object.attachment %}
             <p><a class="text-dark fw-bold"
                     target="_blank"
-                    href="{{object.attachment.url}}">{{object.name}}</a></p>
+                    href="{{object.attachment.url}}"><span
+                        class="material-symbols-outlined fs-1 text-danger">
+                        attach_file
+                    </span></a></p>
             {% endif %}
             <p>{{object.description}}</p>
             <p class="small text-muted">{{object.created_at}}</p>
