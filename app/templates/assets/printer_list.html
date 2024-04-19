@@ -46,7 +46,12 @@
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td><a class="text-dark"
-                                href="{% url 'printer-detail' printer.pk %}">{{printer.model.name|upper}}
+                                href="{% url 'printer-detail' printer.pk %}">
+                                {{printer.model.maker.name|upper}} - 
+                                {{printer.model.name|upper}}
+                                {% if printer.serial_number %}
+                                ({{printer.serial_number}})
+                                {% endif %}
                             </a>
                         </td>
                         <td>{{printer.location}}</td>
