@@ -4,6 +4,9 @@ from django.urls import reverse
 
 class KnowledgeBaseCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    
+    class Meta:
+        verbose_name_plural = "Knowledge Base Categories"
 
     def __str__(self):
         return self.name
@@ -20,9 +23,6 @@ class KnowledgeBase(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = "Knowledge Base Categories"
 
     def get_absolute_url(self):
         return reverse("knowledgebase-detail", kwargs={"pk": self.pk})

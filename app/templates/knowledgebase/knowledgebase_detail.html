@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load knowledgebase_extras %}
 
 {% block content %}
 <div class="container py-5 mb-5">
@@ -19,7 +20,7 @@
                         attach_file
                     </span></a></p>
             {% endif %}
-            <p>{{object.description}}</p>
+            <p>{{object.description|mark_down}}</p>
             <p class="small text-muted">{{object.created_at}}</p>
         </div>
     </div>
