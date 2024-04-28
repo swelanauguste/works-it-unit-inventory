@@ -7,3 +7,4 @@ django-pwa==1.1.0
 gunicorn==21.2.0
 psycopg2-binary==2.9.9
 markdown==3.6
+django-after-response==0.2.2

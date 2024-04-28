@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "after_response",
     "users",
     "assets",
     "clients",
@@ -205,7 +206,7 @@ LOGIN_URL = "/accounts/login/"
 LOGOUT_URL = "/accounts/login/"
 
 
-# # EMAIL SETTINGS
+# EMAIL SETTINGS
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST = "mail.govt.lc"
@@ -215,6 +216,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = "ict.infrastructure@govt.lc"
+
 
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # EMAIL_FILE_PATH = "emails"

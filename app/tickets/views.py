@@ -1,4 +1,6 @@
+import after_response
 from clients.models import Client
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,7 +12,6 @@ from django.urls import reverse
 from django.utils.html import strip_tags
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from users.models import Profile, User
-from django.conf import settings
 
 from .forms import (
     CommentCreateForm,
@@ -38,7 +39,6 @@ def closed_ticket_view(request, slug):
     ticket.save()
     messages.success(request, f"Your ticket {ticket} has been closed")
     return redirect("ticket-open-list")
-
 
 def assign_technician_view(request, slug):
     ticket = get_object_or_404(Ticket, slug=slug)
@@ -107,7 +107,7 @@ def create_ticket_view(request):
                 user=client, summary=summary, file=file, description=description
             )
             ticket.save()
-            send_ticket_creation_email(ticket, email)
+            send_ticket_creation_email.after_response(ticket, email)
             messages.success(request, "Ticket was created successfully")
             return redirect("ticket-detail", slug=ticket.slug)
     else:
@@ -117,6 +117,7 @@ def create_ticket_view(request):
     return render(request, "tickets/create_ticket.html", context)
 
 
+@after_response.enable
 def send_ticket_creation_email(ticket, recipient_email):
     current_site = Site.objects.get_current()
     domain = current_site.domain
@@ -145,7 +146,7 @@ def send_ticket_creation_email(ticket, recipient_email):
 class TicketOpenListView(ListView):
     model = Ticket
     paginate_by = 25
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["all_tickets_count"] = Ticket.objects.all().count()
