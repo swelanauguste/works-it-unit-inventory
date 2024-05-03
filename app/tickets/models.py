@@ -5,7 +5,7 @@ from clients.models import Client
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
-from users.models import User, Profile
+from users.models import Profile, User
 
 
 def generate_short_id():
@@ -81,7 +81,7 @@ class Ticket(models.Model):
     )
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["is_closed", "updated_at"]
 
     def get_absolute_url(self):
         return reverse("ticket-detail", kwargs={"slug": self.slug})
