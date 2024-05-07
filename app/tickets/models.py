@@ -81,7 +81,7 @@ class Ticket(models.Model):
     )
 
     class Meta:
-        ordering = ["is_closed", "updated_at"]
+        ordering = ["-is_closed", "updated_at"]
 
     def get_absolute_url(self):
         return reverse("ticket-detail", kwargs={"slug": self.slug})
