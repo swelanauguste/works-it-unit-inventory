@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 
-{% load static %}
 
 {% block content %}
 <div class="container py-5 mb-5">
     <h1>{{object.name}}</h1>
     <hr>
     <div class="col-lg p-5">
+
         <div class="text-end pb-3">
             <a class="btn btn-dark px-5 rounded-4"
                 href="{% url 'card-update' object.pk %}">Edit</a>
-            <a class="btn btn-info ms-3 px-5 rounded-4"
-                href="{% url 'card' object.pk %}">Card</a>
         </div>
         <hr>
         <div class="row">
@@ -34,8 +32,8 @@
                 <p>Category.: {{object.category}}</p>
                 <p>Expires.: {{object.expires}}</p>
             </div>
+
         </div>
     </div>
- 
 </div>
 {% endblock content %}

@@ -9,6 +9,11 @@ from .forms import CardForm
 from .models import Card
 
 
+def card_view(request, pk):
+    card = Card.objects.get(pk=pk)
+    return render(request, "cards/card.html", {"card": card})
+
+
 def card_filter_view(request):
     f = CardFilter(request.GET, queryset=Card.objects.all())
     return render(request, "card/card_filter.html", {"filter": f})

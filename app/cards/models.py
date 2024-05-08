@@ -33,6 +33,7 @@ class Card(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=True, blank=True
     )
+    department = models.CharField(max_length=200, blank=True, null=True)
     expires = models.DateField(blank=True)
     is_printed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
