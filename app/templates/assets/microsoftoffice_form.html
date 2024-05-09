@@ -32,7 +32,10 @@
                 method="post">
                 {% csrf_token %}
                 {{form|crispy}}
-                <button type="submit">Assign Key</button>
+                <div class="text-end">
+                    <button class="btn btn-dark"
+                        type="submit">Assign Key</button>
+                </div>
             </form>
             <!-- <a class="btn btn-dark rounded-4 px-5"
                 href="{% url 'microsoft-office-update' object.pk %}">Assign

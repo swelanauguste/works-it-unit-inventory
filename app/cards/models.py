@@ -58,3 +58,33 @@ class Card(models.Model):
 
     def __str__(self):
         return f"{self.name.upper()}/{self.licence_no}/{self.category}"
+
+
+class StaffCard(models.Model):
+    photo = models.FileField(upload_to="photos", blank=True)
+    signature = models.FileField(upload_to="signatures", blank=True)
+    name = models.CharField(max_length=200)
+    department = models.CharField(max_length=200, null=True)
+    is_printed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="staff_licence_created_by",
+    )
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="staff_licence_updated_by",
+    )
+
+    def get_absolute_url(self):
+        return reverse("staff-card-detail", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.name.upper()}/{self.department}"

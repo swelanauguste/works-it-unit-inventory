@@ -83,10 +83,23 @@
 
                     </ul>
                 </div>
-                <li><a href="{% url 'card-list' %}"
-                        class="nav-link px-2 link-body-emphasis">Licencing
-                        cards</a>
-                </li>
+                <div class="dropdown text-end">
+                    <a href="#"
+                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Cards
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item"
+                                href="{% url 'staff-card-list' %}">Staff</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{% url 'ticket-closed-list' %}">
+                                Wiremen</a></li>
+
+                    </ul>
+                </div>
                 <li><a href="{% url 'knowledgebase-list' %}"
                         class="nav-link px-2 link-body-emphasis">Knowledge base
                     </a>

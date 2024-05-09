@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 m-5">
+    <h1>Card form</h1>
+    <hr>
+    <div class="col-lg-6 p-5 m-3 mx-auto">
+        <form action=""
+            enctype="multipart/form-data"
+            method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="text-end">
+                <br>
+                <button class="btn btn-dark rounded-4 btn-lg px-5"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("#id_licence").select2();
+    $("#id_category").select2();
+</script>
+{% endblock content %}

@@ -2,6 +2,7 @@ from clients.models import Client, Department
 from django.db import models
 from django.shortcuts import reverse
 from users.models import User
+from django.utils import timezone
 
 # class ComputerName(models.Model):
 #     computer_name = models.CharField(max_length=100, unique=True)
@@ -413,7 +414,7 @@ class MicrosoftOfficeVersion(models.Model):
 
 class MicrosoftOffice(models.Model):
     version = models.ForeignKey(
-        MicrosoftOfficeVersion, on_delete=models.CASCADE, related_name="versions"
+        MicrosoftOfficeVersion, on_delete=models.CASCADE, related_name="versions", default=1
     )
     product_key = models.CharField(max_length=30, unique=True)
     computer = models.ForeignKey(
@@ -424,7 +425,7 @@ class MicrosoftOffice(models.Model):
         help_text="serial number",
         related_name="office_installations",
     )
-    date_installed = models.DateField(blank=True, null=True)
+    date_installed = models.DateField(null=True, blank=True)
     comments = models.TextField(blank=True, null=True)
     is_installed = models.BooleanField(default=False)
     has_failed = models.BooleanField(default=False)
