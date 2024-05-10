@@ -84,6 +84,40 @@
             </table>
         </div>
     </section>
+    <br>
+    <section>
+        <h3>Failed</h3>
+        <hr>
+        <div class="table-responsive px-5">
+            <table class="table table-hover table-sm small">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Key</th>
+                        <th scope="col">Computer</th>
+                        <th scope="col">Installed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for install in microsoft_office_has_failed %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a class="text-dark"
+                                href="{% url 'microsoft-office-update' install.pk %}">{{install}}
+                            </a>
+                        </td>
+                        <td><a class="text-danger" href="{{install.computer.get_absolute_url}}">{{install.computer|default:'-'}}</a></td>
+                        <td>{{install.date_installed|default:'-'}}</td>
+                    </tr>
+                    {% empty %}
+                    <td colspan="4">
+                        <p class="text-center">No available keys</p>
+                    </td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
 
 

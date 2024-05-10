@@ -74,6 +74,9 @@ class MicrosoftOfficeListView(LoginRequiredMixin, ListView):
         context["microsoft_office_installed"] = MicrosoftOffice.objects.filter(
             is_installed=True
         )
+        context["microsoft_office_has_failed"] = MicrosoftOffice.objects.filter(
+            has_failed=True
+        )
         context["microsoft_office_update_form"] = MicrosoftOfficeUpdateForm()
         return context
 
