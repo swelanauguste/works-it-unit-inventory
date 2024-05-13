@@ -49,7 +49,9 @@
                         {% endfor %}
                     </p>
                     <p>Note: {{object.notes}}</p>
-                    <p>MS Office: {{object.office_installations.last}}</p>
+                    <p>MS Office: <a class="text-dark"
+                            href="{{object.office_installations.last.get_absolute_url}}">{{object.office_installations.last}}</a>
+                    </p>
                     <p>Created by: {{object.created_by}}</p>
                     <p>Updated by: {{object.updated_by}}</p>
                 </div>
