@@ -75,7 +75,9 @@
                                 href="{% url 'microsoft-office-update' install.pk %}">{{install}}
                             </a>
                         </td>
-                        <td><a class="text-danger" href="{{install.computer.get_absolute_url}}">{{install.computer|default:'-'}}</a></td>
+                        <td><a class="text-danger"
+                                href="{{install.computer.get_absolute_url}}">{{install.computer|default:'-'}}</a>
+                        </td>
                         <td>{{install.date_installed|default:'-'}}</td>
                         <td>{{install.created_at}}</td>
                     </tr>
@@ -111,7 +113,9 @@
                                 href="{% url 'microsoft-office-update' failed.pk %}">{{failed}}
                             </a>
                         </td>
-                        <td><a class="text-danger" href="{{failed.computer.get_absolute_url}}">{{failed.computer|default:'-'}}</a></td>
+                        <td><a class="text-danger"
+                                href="{{failed.computer.get_absolute_url}}">{{failed.computer|default:'-'}}</a>
+                        </td>
                         <td>{{failed.date_installed|default:'-'}}</td>
                         <td>{{failed.created_at}}</td>
                     </tr>
@@ -125,6 +129,4 @@
         </div>
     </section>
 </div>
-
-
 {% endblock content %}
