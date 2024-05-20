@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (
-    ComputerCreateView,
+    ComputerCreateView,  # get_next_computer_name_view,
+    ComputerDeleteView,
     ComputerDetailView,
     ComputerListView,
     ComputerModelCreateView,
@@ -9,9 +10,9 @@ from .views import (
     ComputerModelListView,
     ComputerModelUpdateView,
     ComputerUpdateView,
+    MicrosoftOfficeAssignView,
     MicrosoftOfficeDetailView,
     MicrosoftOfficeListView,
-    MicrosoftOfficeAssignView,
     MonitorCreateView,
     MonitorDetailView,
     MonitorListView,
@@ -31,8 +32,6 @@ from .views import (
     add_computer_comment_view,
     computer_filter_view,
     printer_filter_view,
-    # get_next_computer_name_view,
-    ComputerDeleteView
 )
 
 urlpatterns = [
@@ -150,4 +149,5 @@ urlpatterns = [
         MicrosoftOfficeAssignView.as_view(),
         name="microsoft-office-update",
     ),
+    
 ]

@@ -3,15 +3,16 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <div class="d-flex justify-content-start align-items-center">
-        <h1>Computer models ({{computer_model_count}})</h1>
-        <a href="{% url 'computer-model-create' %}">
-            <span class="ms-5 fs-1 text-success material-symbols-outlined">
-                add_box
-            </span>
+    <h1>Computer models ({{computer_model_count}})</h1>
+    <hr>
+    <div class="d-flex justify-content-end align-items-center">
+        <a class="text-dark me-2" href="{% url 'computer-model-create' %}">
+            Add model
+        </a>
+        <a class="text-dark me-2" href="{% url 'computer-create' %}">
+            Add computer
         </a>
     </div>
-    <hr>
 
     <div class="col-lg-6 mx-auto py-3">
         <form action=""

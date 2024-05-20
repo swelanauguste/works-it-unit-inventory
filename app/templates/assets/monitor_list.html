@@ -35,6 +35,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Serial number</th>
                             <th scope="col">Monitor model</th>
+                            <th scope="col">Computer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,12 @@
                                 </a>
                             </td>
                             <td>{{monitor.model.name|upper}}</td>
+                            <td>
+                                {% for ob in monitor.monitors.all %}
+                                <a
+                                    href="{{ob.get_absolute_url}}">{{ob.serial_number|upper}}</a>
+                                {% endfor %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -1,8 +1,8 @@
 from clients.models import Client, Department
 from django.db import models
 from django.shortcuts import reverse
-from users.models import User
 from django.utils import timezone
+from users.models import User
 
 # class ComputerName(models.Model):
 #     computer_name = models.CharField(max_length=100, unique=True)
@@ -211,11 +211,13 @@ class Computer(models.Model):
     )
     serial_number = models.CharField(max_length=100, blank=True, null=True)
     warranty_info = models.CharField("Warranty", max_length=100, default="N/A")
-    computer_name = models.CharField(max_length=100, blank=True, null=True)
+    computer_name = models.CharField(
+        max_length=100, blank=True, null=True, default="MCWT"
+    )
     model = models.ForeignKey(
         ComputerModel, on_delete=models.CASCADE, related_name="computers"
     )
-    status = models.ForeignKey(Status, on_delete=models.CASCADE)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, default=2)
     monitor = models.ManyToManyField(Monitor, related_name="monitors", blank=True)
     os = models.ForeignKey(
         OperatingSystem,
@@ -230,6 +232,7 @@ class Computer(models.Model):
         blank=True,
         null=True,
         related_name="computer_locations",
+        default=1,
     )
     department = models.ForeignKey(
         Department,
@@ -237,9 +240,10 @@ class Computer(models.Model):
         blank=True,
         null=True,
         related_name="computer_departments",
+        default=1,
     )
     user = models.CharField(max_length=100, blank=True, null=True)
-    date_received = models.DateField(blank=True, null=True)
+    date_received = models.DateField(blank=True, null=True, default=timezone.now)
     date_installed = models.DateField(blank=True, null=True)
     image = models.FileField(upload_to="system_audit/", blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
@@ -266,10 +270,16 @@ class Computer(models.Model):
     )
 
     class Meta:
-        ordering = ["computer_name"]
+        ordering = ["created_at"]
 
     def get_absolute_url(self):
         return reverse("computer-detail", kwargs={"pk": self.pk})
+
+    def get_last_computer_name(self):
+        last_computer_name = Computer.objects.last()
+        if last_computer_name:
+            return last_computer_name.computer_name
+        return "MCWT0000"
 
     def __str__(self):
         if self.serial_number:
@@ -414,7 +424,10 @@ class MicrosoftOfficeVersion(models.Model):
 
 class MicrosoftOffice(models.Model):
     version = models.ForeignKey(
-        MicrosoftOfficeVersion, on_delete=models.CASCADE, related_name="versions", default=1
+        MicrosoftOfficeVersion,
+        on_delete=models.CASCADE,
+        related_name="versions",
+        default=1,
     )
     product_key = models.CharField(max_length=30, unique=True)
     computer = models.ForeignKey(

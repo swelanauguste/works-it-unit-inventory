@@ -20,13 +20,13 @@
                 </div>
                 <hr>
                 <div class="col">
-                    <p>Computer name: {{object.computer_name|upper}}</p>
+                    <p>Computer name: {{object.computer_name|upper}} ({{object.model.computer_type.name|upper}})</p>
                     <p>Model: <a href="{{object.model.get_absolute_url}}">
                             {{object.model|upper}}</a></p>
                     <p>Location: {{object.location}}</p>
                     <!-- <p>IP Address: {{object.ip_addr}}</p> -->
                     <p>Department: {{object.department}}</p>
-                    <p>user: {{object.user}}</p>
+                    <p>User: {{object.user}}</p>
                     <p>Status: {{object.status}}</p>
                     <p>Received: {{object.date_received}}</p>
                     <p>Installed: {{object.date_installed}}</p>

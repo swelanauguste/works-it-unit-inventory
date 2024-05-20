@@ -241,14 +241,35 @@ class PrinterModelListView(ListView):
         return PrinterModel.objects.all()
 
 
-class ComputerCreateView(CreateView):
+# class ComputerCreateView(CreateView):
+#     model = Computer
+#     form_class = ComputerForm
+
+#     def form_valid(self, form):
+#         form.instance.created_by = self.request.user
+#         form.instance.updated_by = self.request.user
+#         return super().form_valid(form)
+
+
+class ComputerCreateView(CreateView, SuccessMessageMixin):
     model = Computer
     form_class = ComputerForm
+    success_message = "Computer was created successfully."
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['last_computer_name'] = Computer.get_last_computer_name(self)
+        return context
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        if "save_and_add_another" in self.request.POST:
+            return reverse_lazy("computer-create")
+        return reverse_lazy("computer-list")
 
 
 class ComputerDeleteView(DeleteView):

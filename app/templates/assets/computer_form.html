@@ -4,19 +4,32 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <h1>Computer form</h1>
+    <h1>{% if form.instance.pk %}Update
+        {% else %}Add
+        {% endif %}</h1>
     <hr>
+    {% if last_computer_name %}
+    <p>Last Computer Name: {{ last_computer_name }}</p>
+    {% endif %}
     <div class="row">
-        <div class="col-lg-6 mx-auto mt-5">
+        <div class="col-lg-6 mx-auto">
             <form action=""
                 enctype="multipart/form-data"
                 method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <div class="d-grid">
+                <div class="text-end">
                     <br>
-                    <button class="btn btn-lg btn-dark rounded-4"
-                        type="submit">Submit</button>
+                    <button class="btn btn-dark me-1"
+                    type="submit"
+                    name="save">Save</button>
+                    {% if not form.instance.pk %}
+                
+                    <button class="btn btn-warning"
+                        type="submit"
+                        name="save_and_add_another">Save and Add
+                        Another</button>
+                    {% endif %}
                 </div>
             </form>
         </div>

@@ -3,15 +3,20 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <div class="d-flex justify-content-start align-items-center">
-        <h1>Computers({{computer_count}})</h1>
-        <a href="{% url 'computer-create' %}">
-            <span class="ms-5 fs-1 text-success material-symbols-outlined">
-                add_box
-            </span>
-        </a>
-    </div>
+    <h1>Computers({{computer_count}})</h1>
     <hr>
+    <div class="d-flex justify-content-end align-items-center">
+        <div class="text-end">
+            <a class="text-dark ms-2"
+                href="{% url 'computer-create' %}">Add computer
+
+            </a>
+            <a class="text-dark ms-2"
+                href="{% url 'computer-model-create' %}">Add model
+
+            </a>
+        </div>
+    </div>
 
     <div class="d-flex justify-content-start align-items-center mt-3">
 
@@ -78,7 +83,8 @@
                             </a>
                         </td>
                         <td>{{computer.model|upper}}</td>
-                        <td>{{computer.location|upper}} ({{computer.department|upper}})</td>
+                        <td>{{computer.location|upper}}
+                            ({{computer.department|upper}})</td>
                         <td>{{computer.status|upper}}</td>
                         <td>{{computer.notes|upper}}</td>
                     </tr>

@@ -68,6 +68,8 @@ class MonitorForm(forms.ModelForm):
             "date_received": forms.DateInput(attrs={"type": "date"}),
             "date_installed": forms.DateInput(attrs={"type": "date"}),
         }
+
+
 class MonitorModelForm(forms.ModelForm):
     class Meta:
         model = MonitorModel
@@ -83,7 +85,7 @@ class ComputerForm(forms.ModelForm):
     class Meta:
         model = Computer
         fields = "__all__"
-        exclude = ["created_by", "updated_by"]
+        exclude = ["created_by", "updated_by", "is_deleted", "deleted_by", "deleted_at"]
         widgets = {
             "date_received": forms.DateInput(attrs={"type": "date"}),
             "date_installed": forms.DateInput(attrs={"type": "date"}),
