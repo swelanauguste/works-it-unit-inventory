@@ -65,6 +65,7 @@ class ComputerFilter(django_filters.FilterSet):
     updated_by = django_filters.ModelChoiceFilter(
         queryset=User.objects.filter(is_tech=True)
     )
+    user = django_filters.CharFilter(lookup_expr="icontains", label="User")
 
     class Meta:
         model = Computer
@@ -72,6 +73,7 @@ class ComputerFilter(django_filters.FilterSet):
             "project",
             "serial_number",
             "computer_name",
+            "user",
             "model",
             "status",
             "os",

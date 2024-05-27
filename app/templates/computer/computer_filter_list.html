@@ -34,6 +34,11 @@
                     {{ filter.form.computer_name|as_crispy_field }}
                 </div>
                 <div class="col-lg">
+                    {{ filter.form.user|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg">
                     {{ filter.form.model|as_crispy_field }}
                 </div>
                 <div class="col-lg">
@@ -42,11 +47,11 @@
                 <div class="col-lg">
                     {{ filter.form.updated_by|as_crispy_field }}
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg">
                     {{ filter.form.project|as_crispy_field }}
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-lg">
                     {{ filter.form.status|as_crispy_field }}
                 </div>
