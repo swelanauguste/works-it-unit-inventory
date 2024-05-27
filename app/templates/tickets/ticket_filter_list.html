@@ -7,7 +7,7 @@
 {% block content %}
 <div class="p-5 mb-5">
     <div class="row">
-        <div class="col-lg-2 p-3 mx-3 border border-dark border-2 rounded-4" style="height: fit-content;">
+        <div class="col-lg-2 p-3 mx-3" style="height: fit-content;">
             <h2>Filter</h2>
             <hr>
             <form action="{% url 'ticket-list' %}"
@@ -33,17 +33,7 @@
                 </a>
             </div>
             <hr>
-            <div class="col-lg-6 mx-auto py-3">
-                <form action=""
-                    method="get">
-                    <input class="form-control form-control-lg rounded-pill"
-                        type="search"
-                        name="ticket"
-                        placeholder="Search by Ticket ID"
-                        id="">
-                </form>
-            </div>
-            <br>
+        
             <div class="table responsive">
                 <table class="table table-sm table-hover small">
                     <thead>

@@ -66,23 +66,11 @@
 
                     </ul>
                 </div>
-                <div class="dropdown text-end">
-                    <a href="#"
-                        class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Tickets
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item"
-                                href="{% url 'ticket-open-list' %}">Opened</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                href="{% url 'ticket-closed-list' %}">
-                                Closed</a></li>
 
-                    </ul>
-                </div>
+                <li><a href="{% url 'ticket-list' %}"
+                        class="nav-link px-2 link-body-emphasis">Tickets
+                    </a>
+                </li>
                 <div class="dropdown text-end">
                     <a href="#"
                         class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
