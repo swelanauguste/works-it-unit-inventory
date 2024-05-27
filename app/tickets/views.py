@@ -24,13 +24,13 @@ from .models import Comment, Ticket, TicketStatus
 
 
 def ticket_list_view(request):
-    tickets_filter = TicketFilter(request.GET, queryset=Ticket.objects.all())
+    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.all())
     all_tickets = Ticket.objects.all().count()
-    ticket_count = tickets_filter.qs.count()
+    ticket_count = ticket_filter.qs.count()
     return render(
         request,
         "tickets/ticket_filter_list.html",
-        {"filter": tickets_filter, "ticket_count": ticket_count, "all_tickets": all_tickets},
+        {"filter": ticket_filter, "ticket_count": ticket_count, "all_tickets": all_tickets},
     )
 
 

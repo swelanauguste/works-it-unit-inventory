@@ -38,10 +38,20 @@ from .models import (
     Status,
 )
 
+def computer_list_view(request):
+    computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.all())
+    all_computers = Computer.objects.all().count()
+    computer_count = computer_filter.qs.count()
+    return render(
+        request,
+        "computer/computer_filter_list.html",
+        {"filter": computer_filter, "computer_count": computer_count, "all_computers": all_computers},
+    )
 
-def computer_filter_view(request):
-    f = ComputerFilter(request.GET, queryset=Computer.objects.all())
-    return render(request, "assets/computer_filter.html", {"filter": f})
+
+# def computer_filter_view(request):
+#     f = ComputerFilter(request.GET, queryset=Computer.objects.all())
+#     return render(request, "assets/computer_filter.html", {"filter": f})
 
 
 def printer_filter_view(request):
