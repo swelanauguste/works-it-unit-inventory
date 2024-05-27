@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="p-5 mb-5">
+    <div class="row">
+        <div class="col-lg-2 p-3 mx-3 border border-dark border-2 rounded-4" style="height: fit-content;">
+            <h2>Filter</h2>
+            <hr>
+            <form action="{% url 'ticket-list' %}"
+                method="get">
+                {% csrf_token %}
+                {{filter.form|crispy}}
+                <br>
+                <div class="d-grid">
+                <button class="btn btn-dark rounded-4 px-5" type="submit">Filter</button>
+            </div>
+            </form>
+        </div>
+        <div class="col">
+            <div class="d-flex align-items-center justify-content-start">
+                <h1>Tickets (<span
+                        title="active">{{ticket_count}}</span>/<span
+                        title="all">{{all_tickets}}</span>)</h1>
+                <a href="{% url 'ticket-create' %}">
+                    <span
+                        class="ms-3 fs-1 text-success material-symbols-outlined">
+                        add_box
+                    </span>
+                </a>
+            </div>
+            <hr>
+            <div class="col-lg-6 mx-auto py-3">
+                <form action=""
+                    method="get">
+                    <input class="form-control form-control-lg rounded-pill"
+                        type="search"
+                        name="ticket"
+                        placeholder="Search by Ticket ID"
+                        id="">
+                </form>
+            </div>
+            <br>
+            <div class="table responsive">
+                <table class="table table-sm table-hover small">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ticket ID</th>
+                            <th scope="col">Summary</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Category to</th>
+                            <th scope="col">Assigned to</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in filter.qs %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td><a class="text-dark"
+                                    href="{{ticket.get_absolute_url}}">#{{ticket.ticket_id}}</a>
+                            </td>
+                            <td>{{ticket.summary}} ({{ticket.ticket_status}})
+                            </td>
+                            <td>{{ticket.assigned_to|default:"Unassigned"}}
+                            </td>
+                            <td>{{ticket.user}}</td>
+                            <td>{{ticket.ticket_category}}</td>
+                            <td class="small text-muted">Updated:
+                                {{ticket.updated_at|naturaltime}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

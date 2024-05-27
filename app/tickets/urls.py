@@ -12,10 +12,12 @@ from .views import (
     assigned_tickets_view,
     closed_ticket_view,
     create_ticket_view,
+    ticket_list_view,
 )
 
 urlpatterns = [
     path("", TicketCreateView.as_view(), name="ticket-create"),
+    path("tickets/", ticket_list_view, name="ticket-list"),
     path("client/tickets/", ClientTicketListView.as_view(), name="client-ticket-list"),
     path("open-tickets/", TicketOpenListView.as_view(), name="ticket-open-list"),
     path("closed-tickets/", TicketClosedListView.as_view(), name="ticket-closed-list"),

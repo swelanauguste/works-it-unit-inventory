@@ -13,6 +13,7 @@ from django.utils.html import strip_tags
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from users.models import Profile, User
 
+from .filters import TicketFilter
 from .forms import (
     CommentCreateForm,
     TicketAssignTechnicianForm,
@@ -20,6 +21,17 @@ from .forms import (
     TicketUpdateForm,
 )
 from .models import Comment, Ticket, TicketStatus
+
+
+def ticket_list_view(request):
+    tickets_filter = TicketFilter(request.GET, queryset=Ticket.objects.all())
+    all_tickets = Ticket.objects.all().count()
+    ticket_count = tickets_filter.qs.count()
+    return render(
+        request,
+        "tickets/ticket_filter_list.html",
+        {"filter": tickets_filter, "ticket_count": ticket_count, "all_tickets": all_tickets},
+    )
 
 
 class TicketUpdateView(UpdateView):
@@ -39,6 +51,7 @@ def closed_ticket_view(request, slug):
     ticket.save()
     messages.success(request, f"Your ticket {ticket} has been closed")
     return redirect("ticket-open-list")
+
 
 def assign_technician_view(request, slug):
     ticket = get_object_or_404(Ticket, slug=slug)
