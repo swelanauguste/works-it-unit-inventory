@@ -3,12 +3,21 @@
 
 {% block content %}
 <div class="p-5 mb-5">
-    <div class="d-flex justify-content-start align-items-center">
-        <h1>Client List</h1>
-        <a href="{% url 'client-create' %}">
-            <span class="fs-1 ms-5 text-success material-symbols-outlined">
-                add_box
-            </span>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Client List ({{client_count}})</h1>
+        <div class="col-lg-4">
+            <form action=""
+                method="get">
+                <input class="form-control form-control-lg rounded-pill"
+                    type="search"
+                    name="q"
+                    placeholder="Search Name, Role, Email, Department..."
+                    value="{{ request.GET.q }}">
+            </form>
+        </div>
+        <a class="me-3 btn btn-dark"
+            href="{% url 'client-create' %}">
+            Add Client
         </a>
     </div>
     <hr>
@@ -35,7 +44,7 @@
                     <td><a class="text-dark"
                             href="mailto:{{client.email}}">{{client.email|lower}}</a>
                     </td>
-                    <td>{{client.ext}}</td>
+                    <td>{{client.ext|default:'-'}}</td>
                     <td>{{client.department}}</td>
                 </tr>
                 {% endfor %}

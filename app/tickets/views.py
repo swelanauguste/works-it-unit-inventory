@@ -24,7 +24,7 @@ from .models import Comment, Ticket, TicketStatus
 
 
 def ticket_list_view(request):
-    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.all())
+    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.filter(ticket_status=TicketStatus.objects.get(name="open")).order_by("-created_at"))
     all_tickets = Ticket.objects.all().count()
     ticket_count = ticket_filter.qs.count()
     return render(
@@ -50,7 +50,7 @@ def closed_ticket_view(request, slug):
     ticket.updated_by = request.user
     ticket.save()
     messages.success(request, f"Your ticket {ticket} has been closed")
-    return redirect("ticket-open-list")
+    return redirect("ticket-list")
 
 
 def assign_technician_view(request, slug):

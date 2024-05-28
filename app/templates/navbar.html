@@ -82,10 +82,6 @@
                         <li><a class="dropdown-item"
                                 href="{% url 'staff-card-list' %}">Staff</a>
                         </li>
-                        <li><a class="dropdown-item"
-                                href="{% url 'ticket-closed-list' %}">
-                                Wiremen</a></li>
-
                     </ul>
                 </div>
                 <li><a href="{% url 'knowledgebase-list' %}"
@@ -131,26 +127,22 @@
                     {% if request.user.profile.photo %}
                     <img src="{{request.user.profile.photo.url}}"
                         alt="mdo"
-                        width="32"
-                        height="32"
+                        width="28"
+                        height="28"
                         class="rounded-circle">
                     {% else %}
                     <img src="{% static 'images/default-avatarpng.png' %}"
                         alt="mdo"
-                        width="32"
-                        height="32"
+                        width="28"
+                        height="28"
                         class="rounded-circle">
                     {% endif %}
-
-
                 </a>
 
                 <ul class="dropdown-menu text-small">
                     {% if request.user.is_authenticated %}
                     {% if request.user.is_tech %}
-                    <li><a class="dropdown-item"
-                            href="{% url 'assigned-tickets' %}">Assigned
-                            tickets</a></li>
+           
                     <li><a class="dropdown-item"
                             href="{% url 'profile-update' request.user.profile.slug %}">Profile</a>
                     </li>
