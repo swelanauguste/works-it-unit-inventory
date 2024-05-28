@@ -28,9 +28,9 @@
                 method="get">
                 <div class="col-lg mx-auto">
                     <input type="text"
-                        class="form-control form-control-lg"
+                        class="form-control"
                         name="q"
-                        placeholder="Search..."
+                        placeholder="Search computer name, serial number, notes..."
                         value="{{ request.GET.q }}">
                 </div>
                 <br>
@@ -92,8 +92,8 @@
                 <br><br>
                 {% endif %}
                 <div class="table-responsive px-5">
-                    <table class="table table-hover table-sm small">
-                        <thead>
+                    <table class="table table-hover table-sm small" style="width:max-content">
+                        <thead style="width: fit-content;">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Computers</th>
@@ -107,16 +107,21 @@
                             {% for computer in filter.qs %}
                             <tr>
                                 <th scope="row">{{forloop.counter}}</th>
+                                <td>{{computer.user|default:"-"|truncatechars:15}}</td>
                                 <td><a class="text-dark"
-                                        href="{% url 'computer-detail' computer.pk %}">{{computer.computer_name|upper}}
-                                        ({{computer.serial_number|upper}})
+                                        href="{% url 'computer-detail' computer.pk %}">{{computer.computer_name|default:'-'|upper|truncatechars:10}}
+                                        ({{computer.serial_number|default:'-'|upper|truncatechars:10}})
                                     </a>
                                 </td>
-                                <td>{{computer.model|upper}}</td>
+                                <td>{{computer.model|upper|truncatechars:25}}</td>
                                 <td>{{computer.location|upper}}
                                     ({{computer.department|upper}})</td>
                                 <td>{{computer.status|upper}}</td>
-                                <td>{{computer.notes|upper}}</td>
+                                <td>{{computer.notes|upper|truncatechars:30}}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No computers found</td>
                             </tr>
                             {% endfor %}
                         </tbody>
