@@ -39,12 +39,24 @@ from .models import (
 )
 
 def computer_list_view(request):
-    computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.all())
+    query = request.GET.get('q', '')
+    
+    if query:
+        computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.filter(
+            Q(computer_name__icontains=query) |
+            Q(serial_number__icontains=query) |
+            Q(user__icontains=query) |
+            Q(notes__icontains=query))
+        )
+    else:
+        computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.all())
+
+        
     all_computers = Computer.objects.all().count()
     computer_count = computer_filter.qs.count()
     return render(
         request,
-        "computer/computer_filter_list.html",
+        "assets/computer/computer_filter_list.html",
         {"filter": computer_filter, "computer_count": computer_count, "all_computers": all_computers},
     )
 
