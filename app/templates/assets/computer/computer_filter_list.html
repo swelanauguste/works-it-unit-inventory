@@ -107,7 +107,7 @@
                             {% for computer in filter.qs %}
                             <tr>
                                 <th scope="row">{{forloop.counter}}</th>
-                                <td>{{computer.user|default:"-"|truncatechars:15}}</td>
+                                <td>{{computer.user|default:"-"|upper|truncatechars:15}}</td>
                                 <td><a class="text-dark"
                                         href="{% url 'computer-detail' computer.pk %}">{{computer.computer_name|default:'-'|upper|truncatechars:10}}
                                         ({{computer.serial_number|default:'-'|upper|truncatechars:10}})
