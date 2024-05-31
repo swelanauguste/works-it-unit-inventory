@@ -24,7 +24,7 @@ from .models import Comment, Ticket, TicketStatus
 
 
 def ticket_list_view(request):
-    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.filter(ticket_status=TicketStatus.objects.get(name="open")).order_by("-created_at"))
+    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.filter().order_by("-created_at"))
     all_tickets = Ticket.objects.all().count()
     ticket_count = ticket_filter.qs.count()
     return render(

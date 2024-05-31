@@ -71,6 +71,10 @@
                         class="nav-link px-2 link-body-emphasis">Tickets
                     </a>
                 </li>
+                <li><a href="{% url 'knowledgebase-list' %}"
+                        class="nav-link px-2 link-body-emphasis">Knowledge base
+                    </a>
+                </li>
                 <div class="dropdown text-end">
                     <a href="#"
                         class="d- nav-link px-2 link-body-emphasis dropdown-toggle"
@@ -84,14 +88,10 @@
                         </li>
                     </ul>
                 </div>
-                <li><a href="{% url 'knowledgebase-list' %}"
-                        class="nav-link px-2 link-body-emphasis">Knowledge base
-                    </a>
-                </li>
+
                 {% endif %}
 
                 {% if request.user.is_clerk %}
-
                 <li><a href="{% url 'sticker-clerk-list' %}"
                         class="nav-link px-2 link-body-emphasis">Stickers</a>
                 </li>
@@ -101,56 +101,52 @@
                         class="nav-link px-2 link-body-emphasis">Clients
                     </a>
                 </li>
-        </div>
-        <!-- <li><a href="#"
+                    <!-- <li><a href="#"
                         class="nav-link px-2 link-body-emphasis">Products</a>
                 </li> -->
-        </ul>
-
-        <div class="dropdown text-end">
-            <a href="#"
-                class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-
-                {% if request.user.profile.photo %}
-                <img src="{{request.user.profile.photo.url}}"
-                    alt="mdo"
-                    width="28"
-                    height="28"
-                    class="rounded-circle">
-                {% else %}
-                <img src="{% static 'images/default-avatarpng.png' %}"
-                    alt="mdo"
-                    width="28"
-                    height="28"
-                    class="rounded-circle">
-                {% endif %}
-            </a>
-
-            <ul class="dropdown-menu text-small">
-                {% if request.user.is_authenticated %}
-                {% if request.user.is_tech %}
-
-                <li><a class="dropdown-item"
-                        href="{% url 'profile-update' request.user.profile.slug %}">Profile</a>
-                </li>
-                {% endif %}
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item"
-                        href="{% url 'account_logout' %}">Sign out</a></li>
-                {% else %}
-
-                <li><a class="dropdown-item"
-                        href="{% url 'account_login' %}">Sign in</a></li>
-                {% endif %}
-
             </ul>
+
+            <div class="dropdown text-end">
+                <a href="#"
+                    class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+
+                    {% if request.user.profile.photo %}
+                    <img src="{{request.user.profile.photo.url}}"
+                        alt="mdo"
+                        width="28"
+                        height="28"
+                        class="rounded-circle">
+                    {% else %}
+                    <img src="{% static 'images/default-avatarpng.png' %}"
+                        alt="mdo"
+                        width="28"
+                        height="28"
+                        class="rounded-circle">
+                    {% endif %}
+                </a>
+
+                <ul class="dropdown-menu text-small">
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_tech %}
+
+                    <li><a class="dropdown-item"
+                            href="{% url 'profile-update' request.user.profile.slug %}">Profile</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item"
+                            href="{% url 'account_logout' %}">Sign out</a></li>
+                    {% else %}
+
+                    <li><a class="dropdown-item"
+                            href="{% url 'account_login' %}">Sign in</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
         </div>
-
-
-    </div>
-    </div>
 </header>

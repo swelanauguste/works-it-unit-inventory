@@ -44,7 +44,7 @@
                             <th scope="col">Assigned to</th>
                             <th scope="col">Client</th>
                             <th scope="col">Category to</th>
-                            <th scope="col">Assigned to</th>
+                            <th scope="col">Updated</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +60,7 @@
                             </td>
                             <td>{{ticket.user}}</td>
                             <td>{{ticket.ticket_category}}</td>
-                            <td class="small text-muted">Updated:
+                            <td class="small text-muted">
                                 {{ticket.updated_at|naturaltime}}</td>
                         </tr>
                         {% endfor %}
