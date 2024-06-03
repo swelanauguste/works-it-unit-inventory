@@ -13,9 +13,24 @@
             <form action="{% url 'ticket-list' %}"
                 method="get">
                 {% csrf_token %}
-                {{filter.form|crispy}}
+                    <input type="text"
+                        class="form-control rounded-0"
+                        name="q"
+                        placeholder="Search Ticket ID, user, summary, description."
+                        value="{{ request.GET.q }}">
+                        <br>
+                        <div class="">
+                            {{ filter.form.status|as_crispy_field }}
+                        </div>
+                        <div class="">
+                            {{ filter.form.category|as_crispy_field }}
+                        </div>
+                        <div class="">
+                            {{ filter.form.assigned_to|as_crispy_field }}
+                        </div>
                 <br>
-                <div class="d-grid">
+                <div class="text-end">
+                    <a class="text-muted me-2" href="{% url 'ticket-list' %}">Clear</a>
                 <button class="btn btn-dark rounded-4 px-5" type="submit">Filter</button>
             </div>
             </form>

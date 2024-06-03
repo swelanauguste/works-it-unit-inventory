@@ -38,26 +38,35 @@ from .models import (
     Status,
 )
 
+
 def computer_list_view(request):
-    query = request.GET.get('q', '')
-    
+    query = request.GET.get("q", "")
+
     if query:
-        computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.filter(
-            Q(computer_name__icontains=query) |
-            Q(serial_number__icontains=query) |
-            Q(user__icontains=query) |
-            Q(notes__icontains=query))
+        computer_filter = ComputerFilter(
+            request.GET,
+            queryset=Computer.objects.filter(
+                Q(computer_name__icontains=query)
+                | Q(serial_number__icontains=query)
+                | Q(user__icontains=query)
+                | Q(notes__icontains=query)
+            ).order_by("-updated_at"),
         )
     else:
-        computer_filter = ComputerFilter(request.GET, queryset=Computer.objects.all())
+        computer_filter = ComputerFilter(
+            request.GET, queryset=Computer.objects.all().order_by("-updated_at")
+        )
 
-        
     all_computers = Computer.objects.all().count()
     computer_count = computer_filter.qs.count()
     return render(
         request,
         "assets/computer/computer_filter_list.html",
-        {"filter": computer_filter, "computer_count": computer_count, "all_computers": all_computers},
+        {
+            "filter": computer_filter,
+            "computer_count": computer_count,
+            "all_computers": all_computers,
+        },
     )
 
 
@@ -277,10 +286,10 @@ class ComputerCreateView(CreateView, SuccessMessageMixin):
     model = Computer
     form_class = ComputerForm
     success_message = "Computer was created successfully."
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['last_computer_name'] = Computer.get_last_computer_name(self)
+        context["last_computer_name"] = Computer.get_last_computer_name(self)
         return context
 
     def form_valid(self, form):

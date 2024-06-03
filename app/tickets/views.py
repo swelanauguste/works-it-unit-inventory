@@ -23,14 +23,51 @@ from .forms import (
 from .models import Comment, Ticket, TicketStatus
 
 
+# def ticket_list_view(request):
+#     ticket_filter = TicketFilter(
+#         request.GET, queryset=Ticket.objects.filter().order_by("-created_at")
+#     )
+#     all_tickets = Ticket.objects.all().count()
+#     ticket_count = ticket_filter.qs.count()
+#     return render(
+#         request,
+#         "tickets/ticket_filter_list.html",
+#         {
+#             "filter": ticket_filter,
+#             "ticket_count": ticket_count,
+#             "all_tickets": all_tickets,
+#         },
+#     )
+
+
 def ticket_list_view(request):
-    ticket_filter = TicketFilter(request.GET, queryset=Ticket.objects.filter().order_by("-created_at"))
+    query = request.GET.get("q", "")
+
+    if query:
+        ticket_filter = TicketFilter(
+            request.GET,
+            queryset=Ticket.objects.filter(
+                Q(user__name__icontains=query)
+                | Q(summary__icontains=query)
+                | Q(description__icontains=query)
+                | Q(ticket_id__icontains=query)
+            ).order_by("-updated_at"),
+        )
+    else:
+        ticket_filter = TicketFilter(
+            request.GET, queryset=Ticket.objects.all().order_by("-updated_at")
+        )
+
     all_tickets = Ticket.objects.all().count()
     ticket_count = ticket_filter.qs.count()
     return render(
         request,
         "tickets/ticket_filter_list.html",
-        {"filter": ticket_filter, "ticket_count": ticket_count, "all_tickets": all_tickets},
+        {
+            "filter": ticket_filter,
+            "ticket_count": ticket_count,
+            "all_tickets": all_tickets,
+        },
     )
 
 
