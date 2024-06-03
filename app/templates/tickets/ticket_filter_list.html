@@ -19,13 +19,13 @@
                         placeholder="Search Ticket ID, user, summary, description."
                         value="{{ request.GET.q }}">
                         <br>
-                        <div class="">
+                        <div>
                             {{ filter.form.status|as_crispy_field }}
                         </div>
-                        <div class="">
+                        <div>
                             {{ filter.form.category|as_crispy_field }}
                         </div>
-                        <div class="">
+                        <div>
                             {{ filter.form.assigned_to|as_crispy_field }}
                         </div>
                 <br>
