@@ -10,7 +10,7 @@
 
 <body>
     <h2>New Ticket: {{ ticket.ticket_id|upper }} Created</h2>
-    <p>Dear {{ ticket.user }},</p>
+    <p>{{ ticket.user.name }},</p>
     <p>A new ticket has been created. Here are the details:</p>
 
     <p><strong>Ticket ID:</strong> {{ ticket.ticket_id }}</p>

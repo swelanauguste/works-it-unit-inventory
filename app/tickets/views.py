@@ -172,7 +172,7 @@ def send_ticket_creation_email(ticket, recipient_email):
     current_site = Site.objects.get_current()
     domain = current_site.domain
 
-    subject = f"New Ticket {ticket.ticket_id}"
+    subject = f"{ticket.summary}"
     ticket_url = reverse("ticket-detail", kwargs={"slug": ticket.slug})
     full_url = f"http://{domain}{ticket_url}"
 
