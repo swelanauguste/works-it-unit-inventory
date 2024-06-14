@@ -51,11 +51,11 @@ def ticket_list_view(request):
                 | Q(summary__icontains=query)
                 | Q(description__icontains=query)
                 | Q(ticket_id__icontains=query)
-            ).order_by("-updated_at"),
+            )
         )
     else:
         ticket_filter = TicketFilter(
-            request.GET, queryset=Ticket.objects.all().order_by("-updated_at")
+            request.GET, queryset=Ticket.objects.all()
         )
 
     all_tickets = Ticket.objects.all().count()
