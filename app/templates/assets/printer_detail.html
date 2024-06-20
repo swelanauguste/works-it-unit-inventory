@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 
 {% block content %}
 <div class="container py-5 mb-5">
@@ -31,6 +33,32 @@
                 <p>Installed: {{object.date_installed}}</p>
                 <p>Notes: {{object.notes}}</p>
             </div>
+            {% if object.supplies.all %}
+            <div class="col">
+                <h3>Suppliers</h3>
+                <ol>
+                    {% for supply in object.supplies.all %}
+                    <div
+                        class="py-3 px-5 rounded-4 border {% if supply.count <= supply.min_count %} border-danger {% else %} border-success {% endif %}">
+                        <li><a href="">({{supply.count}}) {{supply.item}}
+                                {{supply.part_number|upper}}</a>
+                            <span
+                                class="text-muted small">{{supply.updated_at|naturaltime}}</span>
+                        </li>
+                        <ul>
+                            {% for supplier in supply.supplier.all %}
+                            <li>{{supplier.supplier}}</li>
+                            <li>{{supplier.email}}</li>
+                            <li>{{supplier.phone}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endif %}
+
         </div>
     </div>
 </div>

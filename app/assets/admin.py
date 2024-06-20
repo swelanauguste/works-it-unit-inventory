@@ -14,9 +14,9 @@ from .models import (
     OperatingSystem,
     Printer,
     PrinterModel,
+    PrinterSupply,
     Project,
     Status,
-    # ComputerName
 )
 
 admin.site.register(ComputerType)
@@ -34,4 +34,4 @@ admin.site.register(Project)
 admin.site.register(MicrosoftOfficeVersion)
 admin.site.register(MicrosoftOffice)
 admin.site.register(ComputerComment)
-# admin.site.register(ComputerName)
+admin.site.register(PrinterSupply)

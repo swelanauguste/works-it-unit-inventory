@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "stickers",
     "cards",
     "knowledgebase",
+    "suppliers",
 ]
 
 MIDDLEWARE = [

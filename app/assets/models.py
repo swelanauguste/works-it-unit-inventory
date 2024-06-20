@@ -2,25 +2,8 @@ from clients.models import Client, Department
 from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
+from suppliers.models import Supplier
 from users.models import User
-
-# class ComputerName(models.Model):
-#     computer_name = models.CharField(max_length=100, unique=True)
-#     last_used_number = models.IntegerField(default=0)
-
-#     def save(self, *args, **kwargs):
-#         if not self.pk:  # Checking if the instance is not yet saved
-#             computer_name_prefix = 'MCWT'
-#             last_computer_name = ComputerName.objects.order_by("-last_used_number").first()
-#             if last_computer_name:
-#                 self.last_used_number = last_computer_name.last_used_number + 1
-#             else:
-#                 self.last_used_number = 1  # Start from 1 if no records exist
-#             self.computer_name = f"{computer_name_prefix}{self.last_used_number}"
-#         super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.computer_name
 
 
 class Project(models.Model):
@@ -397,6 +380,28 @@ class Printer(models.Model):
 
     def __str__(self):
         return f"{self.model.maker} - {self.model.name}"
+
+
+class PrinterSupply(models.Model):
+    printer = models.ForeignKey(
+        Printer, on_delete=models.SET_NULL, null=True, related_name="supplies"
+    )
+    item = models.CharField(max_length=50)
+    part_number = models.CharField(max_length=60, null=True, blank=True)
+    count = models.PositiveIntegerField(default=1)
+    min_count = models.PositiveIntegerField(default=2)
+    supplier = models.ManyToManyField(Supplier)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "printer supplies"
+
+    def get_absolute_url(self):
+        return reverse("supply-detail", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.item} {self.printer} ({self.count})"
 
 
 class MicrosoftOfficeVersion(models.Model):
