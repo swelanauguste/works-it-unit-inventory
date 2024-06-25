@@ -6,7 +6,7 @@ from ...models import PrinterModel as TargetPrinterModel
 from locations.models import Location as TargetLocation
 from departments.models import Department as TargetDepartment
 from statuses.models import Status as TargetStatus
-from users.models import User
+from users.models import User as TargetUser
 
 class Command(BaseCommand):
     help = 'Transfer Printer objects from one model to another, maintaining foreign keys'
