@@ -7,38 +7,40 @@
 {% block content %}
 <div class="p-5 mb-5">
     <div class="row">
-        <div class="col-lg-2 p-3 mx-3" style="height: fit-content;">
+        <div class="col-lg-2 p-3 mx-3"
+            style="height: fit-content;">
             <h2>Filter</h2>
             <hr>
             <form action="{% url 'ticket-list' %}"
                 method="get">
                 {% csrf_token %}
-                    <input type="text"
-                        class="form-control rounded-0"
-                        name="q"
-                        placeholder="Search Ticket ID, user, summary, description."
-                        value="{{ request.GET.q }}">
-                        <br>
-                        <div>
-                            {{ filter.form.status|as_crispy_field }}
-                        </div>
-                        <div>
-                            {{ filter.form.category|as_crispy_field }}
-                        </div>
-                        <div>
-                            {{ filter.form.assigned_to|as_crispy_field }}
-                        </div>
+                <input type="text"
+                    class="form-control rounded-0"
+                    name="q"
+                    placeholder="Search Ticket ID, user, summary, description."
+                    value="{{ request.GET.q }}">
+                <br>
+                <div>
+                    {{ filter.form.status|as_crispy_field }}
+                </div>
+                <div>
+                    {{ filter.form.category|as_crispy_field }}
+                </div>
+                <div>
+                    {{ filter.form.assigned_to|as_crispy_field }}
+                </div>
                 <br>
                 <div class="text-end">
-                    <a class="text-muted me-2" href="{% url 'ticket-list' %}">Clear</a>
-                <button class="btn btn-dark rounded-4 px-5" type="submit">Filter</button>
-            </div>
+                    <a class="text-muted me-2"
+                        href="{% url 'ticket-list' %}">Clear</a>
+                    <button class="btn btn-dark rounded-4 px-5"
+                        type="submit">Filter</button>
+                </div>
             </form>
         </div>
         <div class="col">
             <div class="d-flex align-items-center justify-content-start">
-                <h1>Tickets (<span
-                        title="active">{{ticket_count}}</span>/<span
+                <h1>Tickets (<span title="active">{{ticket_count}}</span>/<span
                         title="all">{{all_tickets}}</span>)</h1>
                 <a href="{% url 'ticket-create' %}">
                     <span
@@ -48,13 +50,14 @@
                 </a>
             </div>
             <hr>
-        
+
             <div class="table responsive">
                 <table class="table table-sm table-hover small">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Ticket ID</th>
+                            <th scope="col">Location</th>
                             <th scope="col">Summary</th>
                             <th scope="col">Assigned to</th>
                             <th scope="col">Client</th>
@@ -69,6 +72,7 @@
                             <td><a class="text-dark"
                                     href="{{ticket.get_absolute_url}}">#{{ticket.ticket_id}}</a>
                             </td>
+                            <td>{{ticket.user.location|default:'-'|upper}}</td>
                             <td>{{ticket.summary}} ({{ticket.ticket_status}})
                             </td>
                             <td>{{ticket.assigned_to|default:"Unassigned"}}

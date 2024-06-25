@@ -33,32 +33,41 @@
                 <p>Installed: {{object.date_installed}}</p>
                 <p>Notes: {{object.notes}}</p>
             </div>
-            {% if object.supplies.all %}
-            <div class="col">
-                <h3>Suppliers</h3>
-                <ol>
+        </div>
+        {% if object.supplies.all %}
+        <hr>
+        <h3>Supplies</h3>
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Part number</th>
+                        <th scope="col">Suppliers</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {% for supply in object.supplies.all %}
-                    <div
-                        class="py-3 px-5 rounded-4 border {% if supply.count <= supply.min_count %} border-danger {% else %} border-success {% endif %}">
-                        <li><a href="">({{supply.count}}) {{supply.item}}
-                                {{supply.part_number|upper}}</a>
-                            <span
-                                class="text-muted small">{{supply.updated_at|naturaltime}}</span>
-                        </li>
-                        <ul>
+                    <tr
+                        class="{% if supply.count == supply.min_count %} table-warning {% elif supply.count < supply.min_count %} table-danger {% else %} table-success {% endif %}">
+                        <td>{{supply.count}}</td>
+                        <td>{{supply.item}}</td>
+                        <td>{{supply.part_number|upper}}</td>
+                        <td>
                             {% for supplier in supply.supplier.all %}
-                            <li>{{supplier.supplier}}</li>
-                            <li>{{supplier.email}}</li>
-                            <li>{{supplier.phone}}</li>
+                            <li> {{supplier.supplier}} <a class="text-dark"
+                                    href="mailto:{{supplier.email}}">{{supplier.email}}</a>
+                                <a class="text-dark"
+                                    href="tel:{{supplier.phone}}">{{supplier.phone}}</a>
+                            </li>
                             {% endfor %}
-                        </ul>
-                    </div>
-                    <br>
+                        </td>
+                    </tr>
                     {% endfor %}
-                </ol>
-            </div>
+                </tbody>
+            </table>
             {% endif %}
-
         </div>
     </div>
 </div>

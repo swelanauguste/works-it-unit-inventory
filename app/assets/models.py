@@ -389,8 +389,8 @@ class PrinterSupply(models.Model):
     item = models.CharField(max_length=50)
     part_number = models.CharField(max_length=60, null=True, blank=True)
     count = models.PositiveIntegerField(default=1)
-    min_count = models.PositiveIntegerField(default=2)
-    supplier = models.ManyToManyField(Supplier)
+    min_count = models.PositiveIntegerField(default=3)
+    supplier = models.ManyToManyField(Supplier, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from locations.models import Location
 
 
 class Department(models.Model):
@@ -17,6 +18,7 @@ class Client(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.SET_NULL, null=True, blank=True
     )
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     job_title = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField()
     ext = models.CharField(max_length=4, blank=True, null=True)

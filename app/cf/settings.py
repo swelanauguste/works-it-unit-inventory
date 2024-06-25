@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     "cards",
     "knowledgebase",
     "suppliers",
+    "printers",
+    "makers",
+    "locations",
+    "departments",
+    "statuses",
+    "projects",
 ]
 
 MIDDLEWARE = [
